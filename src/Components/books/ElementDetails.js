@@ -1,3 +1,4 @@
+import { Rating } from "@material-ui/lab";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -12,10 +13,32 @@ function Book() {
       .then((res) => setBookValues(res.data))
       .catch((e) => setBookValues({ error: e }));
   }, []);
+  const {
+    title,
+    author,
+    genre,
+    release_date,
+    description,
+    image_url,
+    rating = null,
+  } = bookValues;
   return (
-    <>
-      <h1>single book: {bookValues.id}</h1>
-    </>
+    <main className="details">
+      <section className="informations">
+        <h1>{title}</h1>
+        <Rating
+          name={title + "-detail"}
+          value={rating}
+          size="large"
+          readOnly={true}
+        />
+        <img src={image_url} alt={title} className="informations__image" />
+      </section>
+      <section className="description">
+        <h2>Opis książki</h2>
+        <p>{description}</p>
+      </section>
+    </main>
   );
 }
 

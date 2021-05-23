@@ -3,7 +3,7 @@ import "./Sidebar.scss";
 
 function Sidebar({ allBooks, setSelectedFilters, selectedFilters }) {
   const bookGenres = allBooks.map((filter) => filter.genre);
-  const uniqueFilters = [...new Set(bookGenres)];
+  const uniqueFilters = [...new Set(bookGenres.sort())];
 
   const handleSelectedFilter = (filterName, filterBool) => {
     filterBool
@@ -25,7 +25,6 @@ function Sidebar({ allBooks, setSelectedFilters, selectedFilters }) {
                 key={index}
                 control={
                   <Checkbox
-                    className="sidebar__checkbox"
                     name={filter}
                     onChange={(e) =>
                       handleSelectedFilter(e.target.name, e.target.checked)

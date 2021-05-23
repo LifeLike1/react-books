@@ -11,6 +11,7 @@
   &__filter-container {
     background-color: $background-card-color;
     border-radius: 10px;
+    width: 90%;
   }
   &__filters {
     display: grid;
@@ -18,10 +19,10 @@
     row-gap: 1vh;
     padding: 10px;
   }
-  &__checkbox {
-    color: #3f51b5 !important;
-  }
   &__inside-title {
     text-align: center;
+  }
+  .MuiCheckbox-root {
+    color: #3f51b5;
   }
 }

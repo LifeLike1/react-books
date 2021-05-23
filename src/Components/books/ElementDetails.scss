@@ -1,0 +1,30 @@
+@import "../static/Config.scss";
+.details {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: $background-card-color;
+  border-radius: 10px;
+  grid-template-columns: 60% 40%;
+  display: grid;
+  margin-top: 5vh;
+  .informations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5vh;
+    &__image {
+      width: 300px;
+    }
+    .MuiRating-iconEmpty {
+      color: $star-background-color;
+    }
+  }
+  .description {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 3vh;
+    letter-spacing: 0.15rem;
+  }
+}

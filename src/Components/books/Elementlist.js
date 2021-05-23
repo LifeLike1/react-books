@@ -5,21 +5,24 @@ import Element from "./Element";
 import "./Elementlist.scss";
 
 function Elementlist({ allBooks, filters }) {
-  const [booksPerPage, setBooksPerPage] = useState(3);
+  const booksPerPage = 3;
+  const [pageDisplay, setPageDisplay] = useState(1);
   const [booksToShow, setBooksToShow] = useState([]);
 
-  const handlePaginationChange = (e, page) => {
+  const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
+    setPageDisplay(page);
     setBooksToShow(allBooks.slice(startIndex, startIndex + booksPerPage));
   };
 
   useEffect(() => {
     setBooksToShow([]);
+    setPageDisplay(1);
   }, [filters]);
 
   return (
     <>
-      <div className="elements">
+      <section className="elements">
         <div className="elements__container">
           <h1 className="elements__title">Lista książek</h1>
         </div>
@@ -32,11 +35,12 @@ function Elementlist({ allBooks, filters }) {
             ))}
         <Pagination
           count={Math.ceil(allBooks.length / booksPerPage)}
-          color="primary"
+          color="secondary"
+          page={pageDisplay}
           className="elements__pagination"
-          onChange={(e, page) => handlePaginationChange(e, page)}
+          onChange={(e, page) => handlePaginationChange(page)}
         />
-      </div>
+      </section>
     </>
   );
 }

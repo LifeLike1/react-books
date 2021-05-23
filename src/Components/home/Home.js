@@ -6,6 +6,7 @@ import "./Home.scss";
 function Home() {
   const [addResponse, setAddResponse] = useState(null);
   const [removeResponse, setRemoveResponse] = useState(null);
+  const [ratingResponse, setRatingResponse] = useState(null);
   const addBook = (values) => {
     const { title, author, genre, date, description, link } = values;
     axios
@@ -25,6 +26,14 @@ function Home() {
       .delete(`http://localhost:5000/api/book/${values.id}`)
       .then((res) => setRemoveResponse(`Usunięto książke o id: ${values.id}`))
       .catch((e) => setRemoveResponse("Nie udało się usunąć książki"));
+  };
+  const addRating = (values) => {
+    axios
+      .post(`http://localhost:5000/api/book/${values.id}/rate`, {
+        score: parseInt(values.rating),
+      })
+      .then((res) => setRatingResponse(`Dodano rating dla ${values.id}`))
+      .catch((e) => console.log(values.rating));
   };
   return (
     <main>
@@ -78,6 +87,22 @@ function Home() {
         </Form>
       </Formik>
       <p>{removeResponse}</p>
+      <Formik
+        initialValues={{
+          id: "",
+          rating: "",
+        }}
+        onSubmit={addRating}
+      >
+        <Form>
+          <label htmlFor="id">Id</label>
+          <Field id="id" name="id" placeholder="Id"></Field>
+          <label htmlFor="rating">Id</label>
+          <Field id="rating" name="rating" placeholder="Rating"></Field>
+          <button type="submit">Dodaj rating</button>
+        </Form>
+      </Formik>
+      <p>{ratingResponse}</p>
     </main>
   );
 }

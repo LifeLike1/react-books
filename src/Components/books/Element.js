@@ -1,9 +1,10 @@
 import "./Element.scss";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import { Rating } from "@material-ui/lab";
 
 function Element({ elementObj }) {
-  const { id, title, author, genre, release_date, image_url } = elementObj;
+  const { id, title, author, release_date, image_url, rating } = elementObj;
   return (
     <div className="element">
       <div className="element__image-container">
@@ -23,14 +24,11 @@ function Element({ elementObj }) {
           </div>
           <div className="element__date">
             <h4>{release_date.substr(0, 10)}</h4>
-            <h5>{genre}</h5>
           </div>
         </div>
       </div>
       <div className="element__functions">
-        <Button variant="contained" color="primary">
-          Button1
-        </Button>
+        <Rating name={title} value={rating} size="large" readOnly={true} />
         <Button variant="contained" color="secondary">
           Button2
         </Button>
