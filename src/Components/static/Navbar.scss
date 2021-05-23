@@ -1,0 +1,31 @@
+@import "Config.scss";
+.navbar {
+  width: 100%;
+  position: relative;
+  height: 60px;
+  background-color: $navbar-color;
+  &__title {
+    margin-left: 2rem;
+    font-size: 1.45em;
+  }
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+  }
+  &__list {
+    display: flex;
+    list-style: none;
+  }
+  &__item {
+    padding: 0 1rem;
+    text-decoration: none;
+    &:visited {
+      color: $primary-color;
+    }
+    &:hover {
+      color: $hover-color;
+    }
+  }
+}
