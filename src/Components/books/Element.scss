@@ -3,12 +3,17 @@
 .element {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  margin-top: 1rem;
   border-bottom: 1px solid $border-color;
   &__image {
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
+    transition: 0.66s;
+    &:hover {
+      height: 96%;
+      width: 96%;
+      transition: 0.66s;
+    }
   }
   &__description {
     display: grid;
@@ -29,11 +34,13 @@
     color: $primary-color;
     text-decoration: none;
     font-size: 1.77rem;
+    transition: 0.66s;
     &:visited {
       color: $primary-color;
     }
     &:hover {
-      color: $hover-color;
+      transition: 0.66s;
+      color: $hover-red-color;
     }
   }
 }

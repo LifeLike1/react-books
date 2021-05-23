@@ -1,9 +1,27 @@
+@import "../static/Config.scss";
+
 .sidebar {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  &__title {
+    font-size: 1.5rem;
+  }
+  &__filter-container {
+    background-color: $background-card-color;
+    border-radius: 10px;
+  }
   &__filters {
     display: grid;
+    grid-template-columns: 50% 50%;
+    row-gap: 1vh;
+    padding: 10px;
+  }
+  &__checkbox {
+    color: #3f51b5 !important;
+  }
+  &__inside-title {
+    text-align: center;
   }
 }

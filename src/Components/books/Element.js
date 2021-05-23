@@ -2,16 +2,7 @@ import "./Element.scss";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 function Element({ elementObj }) {
-  const {
-    id,
-    title,
-    author,
-    genre,
-    release_date,
-    description,
-    image_url,
-    rating,
-  } = elementObj;
+  const { id, title, author, release_date, image_url } = elementObj;
   return (
     <div className="element">
       <div className="element__image-container">
@@ -36,10 +27,10 @@ function Element({ elementObj }) {
       </div>
       <div className="element__functions">
         <Button variant="contained" color="primary">
-          Primary
+          Button1
         </Button>
         <Button variant="contained" color="secondary">
-          Secondary
+          Button2
         </Button>
       </div>
     </div>

@@ -7,15 +7,35 @@ import Sidebar from "./Sidebar";
 
 function Books() {
   const [allBooks, setAllBooks] = useState([]);
+  const [nonChangleableBooks, setNonChangeableBooks] = useState([]);
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  useEffect(() => {
+    const filtered = nonChangleableBooks.filter((book) =>
+      selectedFilters.includes(book.genre)
+    );
+    selectedFilters.length === 0
+      ? setAllBooks(nonChangleableBooks)
+      : setAllBooks(filtered);
+  }, [selectedFilters]);
+
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/book")
-      .then((res) => setAllBooks(res.data))
+      .then((res) => {
+        setAllBooks(res.data);
+        setNonChangeableBooks(res.data);
+      })
       .catch((e) => console.log(e.response));
   }, []);
+
   return (
     <main className="books-container">
-      <Sidebar />
+      <Sidebar
+        allBooks={nonChangleableBooks}
+        setSelectedFilters={setSelectedFilters}
+        selectedFilters={selectedFilters}
+      />
       <Elementlist allBooks={allBooks} />
     </main>
   );
