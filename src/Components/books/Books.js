@@ -36,7 +36,7 @@ function Books() {
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
       />
-      <Elementlist allBooks={allBooks} />
+      <Elementlist allBooks={allBooks} filters={selectedFilters} />
     </main>
   );
 }
