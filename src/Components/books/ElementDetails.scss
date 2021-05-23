@@ -18,13 +18,19 @@
     .MuiRating-iconEmpty {
       color: $star-background-color;
     }
+    .MuiRating-root {
+      font-size: 3rem;
+    }
   }
   .description {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin: 3vh;
+    padding: 3vh;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: $navbar-color;
     letter-spacing: 0.15rem;
   }
 }

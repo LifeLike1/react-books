@@ -17,7 +17,7 @@ function Book() {
     title,
     author,
     genre,
-    release_date,
+    release_date = "x",
     description,
     image_url,
     rating = null,
@@ -25,13 +25,10 @@ function Book() {
   return (
     <main className="details">
       <section className="informations">
-        <h1>{title}</h1>
-        <Rating
-          name={title + "-detail"}
-          value={rating}
-          size="large"
-          readOnly={true}
-        />
+        <h1>{`${title} - ${genre}`}</h1>
+        <h3>{`Autor: ${author}`}</h3>
+        <h3>{`Pierwsze wydane: ${release_date.substr(0, 10)}`}</h3>
+        <Rating name={title + "-detail"} value={rating} readOnly={true} />
         <img src={image_url} alt={title} className="informations__image" />
       </section>
       <section className="description">

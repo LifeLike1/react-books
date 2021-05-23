@@ -10,4 +10,7 @@
   &__pagination {
     margin: 2vh;
   }
+  .MuiPaginationItem-root {
+    color: $primary-color;
+  }
 }
