@@ -6,7 +6,19 @@
   border-radius: 10px;
   grid-template-columns: 60% 40%;
   display: grid;
+  position: relative;
   margin-top: 5vh;
+  &__back {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    text-decoration: none;
+    color: $primary-color;
+    display: flex;
+    &:hover {
+      color: $hover-color;
+    }
+  }
   .informations {
     display: flex;
     flex-direction: column;
@@ -16,7 +28,7 @@
       width: 300px;
     }
     .MuiRating-iconEmpty {
-      color: $star-background-color;
+      color: lighten($star-background-color, 25%);
     }
     .MuiRating-root {
       font-size: 3rem;
@@ -31,6 +43,27 @@
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: $navbar-color;
-    letter-spacing: 0.15rem;
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    &__title {
+      letter-spacing: 0.3rem;
+    }
+    &__text {
+      letter-spacing: 0.15rem;
+      text-align: center;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
 }

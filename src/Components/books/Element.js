@@ -28,7 +28,13 @@ function Element({ elementObj }) {
         </div>
       </div>
       <div className="element__functions">
-        <Rating name={title} value={rating} size="large" readOnly={true} />
+        <Rating
+          name={title}
+          value={rating}
+          size="large"
+          readOnly={true}
+          precision={0.1}
+        />
         <Button variant="contained" color="secondary">
           Button2
         </Button>

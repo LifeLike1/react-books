@@ -30,7 +30,7 @@ function Home() {
   const addRating = (values) => {
     axios
       .post(`http://localhost:5000/api/book/${values.id}/rate`, {
-        score: parseInt(values.rating),
+        score: parseFloat(values.rating),
       })
       .then((res) => setRatingResponse(`Dodano rating dla ${values.id}`))
       .catch((e) => console.log(values.rating));
@@ -97,7 +97,7 @@ function Home() {
         <Form>
           <label htmlFor="id">Id</label>
           <Field id="id" name="id" placeholder="Id"></Field>
-          <label htmlFor="rating">Id</label>
+          <label htmlFor="rating">Rating</label>
           <Field id="rating" name="rating" placeholder="Rating"></Field>
           <button type="submit">Dodaj rating</button>
         </Form>

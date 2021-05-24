@@ -5,12 +5,33 @@
   align-items: center;
   justify-content: center;
   &__container {
-    display: flex;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: space-between;
   }
   &__pagination {
     margin: 2vh;
   }
   .MuiPaginationItem-root {
     color: $primary-color;
+  }
+  .MuiInputBase-input {
+    color: $primary-color;
+  }
+  .MuiInputLabel-formControl {
+    color: $primary-color;
+    &:hover {
+      border-color: lighten($hover-red-color, 20%);
+    }
+    &:focus {
+      border-color: lighten($hover-red-color, 20%);
+    }
+  }
+  .MuiOutlinedInput-notchedOutline {
+    border-color: $hover-red-color;
+    &:hover {
+      border-color: lighten($hover-red-color, 20%);
+    }
   }
 }
