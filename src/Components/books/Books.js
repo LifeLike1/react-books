@@ -36,21 +36,19 @@ function Books() {
   return (
     <main className="books-container">
       <Sidebar
-        allBooks={nonChangeableBooks}
+        nonChangeableBooks={nonChangeableBooks}
+        allBooks={allBooks}
         setAllBooks={setAllBooks}
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
-        pageDisplay={pageDisplay}
-        setPageDisplay={setPageDisplay}
       />
       <Elementlist
         allBooks={allBooks}
         setAllBooks={setAllBooks}
         nonChangeableBooks={nonChangeableBooks}
-        filters={selectedFilters}
+        selectedFilters={selectedFilters}
         pageDisplay={pageDisplay}
         setPageDisplay={setPageDisplay}
-        selectedFilters={selectedFilters}
         setIndexFrom={setIndexFrom}
         indexFrom={indexFrom}
         setIndexTo={setIndexTo}

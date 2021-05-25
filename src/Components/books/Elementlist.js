@@ -9,7 +9,6 @@ function Elementlist({
   allBooks,
   setAllBooks,
   nonChangeableBooks,
-  filters,
   pageDisplay,
   setPageDisplay,
   selectedFilters,
@@ -25,7 +24,6 @@ function Elementlist({
     setIndexFrom(startIndex);
     setIndexTo(startIndex + booksPerPage);
     setPageDisplay(page);
-    setAllBooks(allBooks);
   };
 
   const handleSearchChange = (searchBook) => {
@@ -46,11 +44,11 @@ function Elementlist({
   };
 
   useEffect(() => {
-    setAllBooks(nonChangeableBooks);
     setIndexFrom(0);
     setIndexTo(booksPerPage);
     setPageDisplay(1);
-  }, [filters]);
+    setAllBooks(allBooks);
+  }, [selectedFilters]);
 
   return (
     <>

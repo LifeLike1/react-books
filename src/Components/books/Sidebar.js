@@ -10,14 +10,13 @@ import {
 import "./Sidebar.scss";
 
 function Sidebar({
+  nonChangeableBooks,
   allBooks,
   setAllBooks,
   setSelectedFilters,
   selectedFilters,
-  pageDisplay,
-  setPageDisplay,
 }) {
-  const bookGenres = allBooks.map((filter) => filter.genre);
+  const bookGenres = nonChangeableBooks.map((filter) => filter.genre);
   const uniqueFilters = [...new Set(bookGenres.sort())];
 
   const handleSelectedFilter = (filterName, filterBool) => {
@@ -31,12 +30,11 @@ function Sidebar({
   const handleSortChange = (sortId) => {
     switch (sortId) {
       case 0:
-        console.log(allBooks);
+        console.log(allBooks.sort((a, b) => a.id - b.id));
         setAllBooks(allBooks.sort((a, b) => a.id - b.id));
-
         break;
       case 1:
-        console.log(allBooks);
+        console.log(allBooks.sort((a, b) => a.rating - b.rating));
         setAllBooks(allBooks.sort((a, b) => a.rating - b.rating));
         break;
       case 2:
