@@ -33,7 +33,7 @@ function Element({ elementObj }) {
           value={rating}
           size="large"
           readOnly={true}
-          precision={0.1}
+          precision={0.25}
         />
         <Button variant="contained" color="secondary">
           Button2
