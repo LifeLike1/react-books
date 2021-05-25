@@ -1,6 +1,6 @@
 import { TextField } from "@material-ui/core";
 import { Autocomplete, Pagination } from "@material-ui/lab";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Element from "./Element";
 import "./Elementlist.scss";
@@ -12,10 +12,13 @@ function Elementlist({
   filters,
   pageDisplay,
   setPageDisplay,
+  selectedFilters,
+  setIndexFrom,
+  indexFrom,
+  setIndexTo,
+  indexTo,
+  booksPerPage,
 }) {
-  const booksPerPage = 3;
-  const [indexFrom, setIndexFrom] = useState(0);
-  const [indexTo, setIndexTo] = useState(booksPerPage);
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
 
@@ -32,11 +35,20 @@ function Elementlist({
   };
 
   const handleTextInput = (text) => {
-    if (!text) setAllBooks(nonChangeableBooks);
+    if (!text) {
+      if (selectedFilters.length) {
+        const filtered = nonChangeableBooks.filter((book) =>
+          selectedFilters.includes(book.genre)
+        );
+        setAllBooks(filtered);
+      } else setAllBooks(nonChangeableBooks);
+    }
   };
 
   useEffect(() => {
     setAllBooks(nonChangeableBooks);
+    setIndexFrom(0);
+    setIndexTo(booksPerPage);
     setPageDisplay(1);
   }, [filters]);
 
@@ -55,7 +67,7 @@ function Elementlist({
                   label="Szukaj książki.."
                   margin="normal"
                   variant="outlined"
-                  // onChange={(e) => handleTextInput(e.target.value)}
+                  onChange={(e) => handleTextInput(e.target.value)}
                 />
               )}
               onChange={(e, selectedElement) =>

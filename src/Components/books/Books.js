@@ -6,17 +6,20 @@ import Elementlist from "./Elementlist";
 import Sidebar from "./Sidebar";
 
 function Books() {
+  const booksPerPage = 3;
   const [allBooks, setAllBooks] = useState([]);
-  const [nonChangleableBooks, setNonChangeableBooks] = useState([]);
+  const [nonChangeableBooks, setNonChangeableBooks] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [indexFrom, setIndexFrom] = useState(0);
+  const [indexTo, setIndexTo] = useState(booksPerPage);
 
   useEffect(() => {
-    const filtered = nonChangleableBooks.filter((book) =>
+    const filtered = nonChangeableBooks.filter((book) =>
       selectedFilters.includes(book.genre)
     );
     selectedFilters.length === 0
-      ? setAllBooks(nonChangleableBooks)
+      ? setAllBooks(nonChangeableBooks)
       : setAllBooks(filtered);
   }, [selectedFilters]);
 
@@ -33,7 +36,7 @@ function Books() {
   return (
     <main className="books-container">
       <Sidebar
-        allBooks={nonChangleableBooks}
+        allBooks={nonChangeableBooks}
         setAllBooks={setAllBooks}
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
@@ -43,10 +46,16 @@ function Books() {
       <Elementlist
         allBooks={allBooks}
         setAllBooks={setAllBooks}
-        nonChangleableBooks={nonChangleableBooks}
+        nonChangeableBooks={nonChangeableBooks}
         filters={selectedFilters}
         pageDisplay={pageDisplay}
         setPageDisplay={setPageDisplay}
+        selectedFilters={selectedFilters}
+        setIndexFrom={setIndexFrom}
+        indexFrom={indexFrom}
+        setIndexTo={setIndexTo}
+        indexTo={indexTo}
+        booksPerPage={booksPerPage}
       />
     </main>
   );

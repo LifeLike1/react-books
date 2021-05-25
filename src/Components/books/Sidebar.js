@@ -12,12 +12,8 @@ import "./Sidebar.scss";
 function Sidebar({
   allBooks,
   setAllBooks,
-  booksToShow,
   setSelectedFilters,
   selectedFilters,
-  setBooksToShow,
-  sorted,
-  setSorted,
   pageDisplay,
   setPageDisplay,
 }) {
