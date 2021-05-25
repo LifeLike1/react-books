@@ -21,7 +21,7 @@ function Books() {
     selectedFilters.length === 0
       ? setAllBooks(nonChangeableBooks)
       : setAllBooks(filtered);
-  }, [selectedFilters]);
+  }, [selectedFilters, nonChangeableBooks]);
 
   useEffect(() => {
     axios

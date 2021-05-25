@@ -47,8 +47,7 @@ function Elementlist({
     setIndexFrom(0);
     setIndexTo(booksPerPage);
     setPageDisplay(1);
-    setAllBooks(allBooks);
-  }, [selectedFilters]);
+  }, [selectedFilters, booksPerPage, setIndexFrom, setIndexTo, setPageDisplay]);
 
   return (
     <>
@@ -76,10 +75,9 @@ function Elementlist({
           </div>
         </div>
 
-        {allBooks &&
-          allBooks
-            .slice(indexFrom, indexTo)
-            .map((book) => <Element elementObj={book} key={book.id} />)}
+        {allBooks.slice(indexFrom, indexTo).map((book) => (
+          <Element elementObj={book} key={book.id} />
+        ))}
 
         <Pagination
           count={Math.ceil(allBooks.length / booksPerPage)}
