@@ -8,6 +8,7 @@ import Sidebar from "./Sidebar";
 function Books() {
   const [allBooks, setAllBooks] = useState([]);
   const [nonChangleableBooks, setNonChangeableBooks] = useState([]);
+  const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
   useEffect(() => {
@@ -33,10 +34,20 @@ function Books() {
     <main className="books-container">
       <Sidebar
         allBooks={nonChangleableBooks}
+        setAllBooks={setAllBooks}
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
+        pageDisplay={pageDisplay}
+        setPageDisplay={setPageDisplay}
       />
-      <Elementlist allBooks={allBooks} filters={selectedFilters} />
+      <Elementlist
+        allBooks={allBooks}
+        setAllBooks={setAllBooks}
+        nonChangleableBooks={nonChangleableBooks}
+        filters={selectedFilters}
+        pageDisplay={pageDisplay}
+        setPageDisplay={setPageDisplay}
+      />
     </main>
   );
 }

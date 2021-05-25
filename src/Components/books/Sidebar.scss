@@ -1,17 +1,12 @@
 @import "../static/Config.scss";
 
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  @include flex-center-column;
   &__title {
     font-size: 1.5rem;
   }
   &__filter-container {
-    background-color: $background-card-color;
-    border-radius: 10px;
-    width: 90%;
+    @include sidebar-card;
   }
   &__filters {
     display: grid;
@@ -24,5 +19,26 @@
   }
   .MuiCheckbox-root {
     color: #3f51b5;
+  }
+  &__sort {
+    @include sidebar-card;
+    @include flex-center-column;
+    margin-top: 3vh;
+    padding-bottom: 2vh;
+    .MuiFormControl-root,
+    .MuiFormLabel-root,
+    .MuiInputBase-input {
+      color: $primary-color;
+    }
+    .MuiFormControl-root {
+      padding-left: 0.75em;
+      border: 1px solid $hover-red-color;
+    }
+    .MuiSelect-icon {
+      color: $primary-color;
+    }
+    .MuiInput-underline::after {
+      border-color: transparent;
+    }
   }
 }

@@ -5,29 +5,39 @@ import { useEffect, useState } from "react";
 import Element from "./Element";
 import "./Elementlist.scss";
 
-function Elementlist({ allBooks, filters }) {
+function Elementlist({
+  allBooks,
+  setAllBooks,
+  nonChangeableBooks,
+  filters,
+  pageDisplay,
+  setPageDisplay,
+}) {
   const booksPerPage = 3;
-  const [pageDisplay, setPageDisplay] = useState(1);
-  const [booksToShow, setBooksToShow] = useState([]);
-  const [searched, setSearched] = useState(false);
-
+  const [indexFrom, setIndexFrom] = useState(0);
+  const [indexTo, setIndexTo] = useState(booksPerPage);
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
+
+    setIndexFrom(startIndex);
+    setIndexTo(startIndex + booksPerPage);
     setPageDisplay(page);
-    setBooksToShow(allBooks.slice(startIndex, startIndex + booksPerPage));
+    setAllBooks(allBooks);
   };
 
   const handleSearchChange = (searchBook) => {
     const books = allBooks.filter((book) => book.title === searchBook);
-    setBooksToShow(books);
+    setAllBooks(books);
     setPageDisplay(1);
-    setSearched(true);
+  };
+
+  const handleTextInput = (text) => {
+    if (!text) setAllBooks(nonChangeableBooks);
   };
 
   useEffect(() => {
-    setBooksToShow([]);
+    setAllBooks(nonChangeableBooks);
     setPageDisplay(1);
-    setSearched(false);
   }, [filters]);
 
   return (
@@ -45,6 +55,7 @@ function Elementlist({ allBooks, filters }) {
                   label="Szukaj książki.."
                   margin="normal"
                   variant="outlined"
+                  // onChange={(e) => handleTextInput(e.target.value)}
                 />
               )}
               onChange={(e, selectedElement) =>
@@ -55,16 +66,13 @@ function Elementlist({ allBooks, filters }) {
           </div>
         </div>
 
-        {!booksToShow.length
-          ? allBooks
-              .slice(0, booksPerPage)
-              .map((book) => <Element elementObj={book} key={book.id} />)
-          : booksToShow.map((book) => (
-              <Element elementObj={book} key={book.id} />
-            ))}
+        {allBooks &&
+          allBooks
+            .slice(indexFrom, indexTo)
+            .map((book) => <Element elementObj={book} key={book.id} />)}
 
         <Pagination
-          count={Math.ceil(!searched ? allBooks.length / booksPerPage : 1)}
+          count={Math.ceil(allBooks.length / booksPerPage)}
           color="secondary"
           page={pageDisplay}
           className="elements__pagination"

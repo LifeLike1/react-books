@@ -6,3 +6,15 @@ $hover-color: rgb(218, 218, 218);
 $hover-red-color: #f50057;
 $background-card-color: #060606;
 $star-background-color: darken($background-card-color, 15%);
+
+@mixin sidebar-card {
+  background-color: $background-card-color;
+  border-radius: 10px;
+  width: 90%;
+}
+
+@mixin flex-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -9,12 +9,6 @@ import "./ElementDetails.scss";
 function Book() {
   const { id } = useParams();
   const [bookValues, setBookValues] = useState({});
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/book/${id}`)
-      .then((res) => setBookValues(res.data))
-      .catch((e) => setBookValues({ error: e }));
-  }, []);
 
   const {
     title,
@@ -33,9 +27,16 @@ function Book() {
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/book/${id}`)
+      .then((res) => setBookValues(res.data))
+      .catch((e) => setBookValues({ error: e }));
+  }, [id]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/book/${id}`)
       .then((res) => setRate(res.data.rating))
       .catch((e) => setRate(null));
-  }, [ratingResponse]);
+  }, [ratingResponse, id]);
 
   const addRating = (id, rating) => {
     axios
