@@ -17,6 +17,7 @@ function Elementlist({
   setIndexTo,
   indexTo,
   booksPerPage,
+  setSortedValue,
 }) {
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
@@ -46,8 +47,16 @@ function Elementlist({
   useEffect(() => {
     setIndexFrom(0);
     setIndexTo(booksPerPage);
+    setSortedValue(0);
     setPageDisplay(1);
-  }, [selectedFilters, booksPerPage, setIndexFrom, setIndexTo, setPageDisplay]);
+  }, [
+    selectedFilters,
+    booksPerPage,
+    setIndexFrom,
+    setIndexTo,
+    setPageDisplay,
+    setSortedValue,
+  ]);
 
   return (
     <>

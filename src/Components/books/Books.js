@@ -13,6 +13,7 @@ function Books() {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [indexFrom, setIndexFrom] = useState(0);
   const [indexTo, setIndexTo] = useState(booksPerPage);
+  const [sortedValue, setSortedValue] = useState(0);
 
   useEffect(() => {
     const filtered = nonChangeableBooks.filter((book) =>
@@ -41,6 +42,8 @@ function Books() {
         setAllBooks={setAllBooks}
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
+        setSortedValue={setSortedValue}
+        sortedValue={sortedValue}
       />
       <Elementlist
         allBooks={allBooks}
@@ -54,6 +57,7 @@ function Books() {
         setIndexTo={setIndexTo}
         indexTo={indexTo}
         booksPerPage={booksPerPage}
+        setSortedValue={setSortedValue}
       />
     </main>
   );

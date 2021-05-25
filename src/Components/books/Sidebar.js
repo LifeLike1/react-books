@@ -15,6 +15,8 @@ function Sidebar({
   setAllBooks,
   setSelectedFilters,
   selectedFilters,
+  setSortedValue,
+  sortedValue,
 }) {
   const bookGenres = nonChangeableBooks.map((filter) => filter.genre);
   const uniqueFilters = [...new Set(bookGenres.sort())];
@@ -25,22 +27,37 @@ function Sidebar({
       : setSelectedFilters(
           selectedFilters.filter((filter) => filter !== filterName)
         );
+    setSortedValue(0);
   };
 
   const handleSortChange = (sortId) => {
+    setSortedValue(sortId);
     switch (sortId) {
       case 0:
-        console.log(allBooks.sort((a, b) => a.id - b.id));
-        setAllBooks(allBooks.sort((a, b) => a.id - b.id));
+        setAllBooks([...allBooks].sort((a, b) => a.id - b.id));
         break;
       case 1:
-        console.log(allBooks.sort((a, b) => a.rating - b.rating));
-        setAllBooks(allBooks.sort((a, b) => a.rating - b.rating));
+        setAllBooks([...allBooks].sort((a, b) => a.rating - b.rating));
         break;
       case 2:
-        console.log(allBooks);
+        setAllBooks([...allBooks].sort((a, b) => b.rating - a.rating));
+        break;
+      case 3:
+        setAllBooks(
+          [...allBooks].sort((a, b) =>
+            a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+          )
+        );
+        break;
+      case 4:
+        setAllBooks(
+          [...allBooks].sort((a, b) =>
+            b.title > a.title ? 1 : a.title > b.title ? -1 : 0
+          )
+        );
+        break;
       default:
-        setAllBooks(allBooks);
+        setAllBooks(nonChangeableBooks);
         break;
     }
   };
@@ -76,6 +93,7 @@ function Sidebar({
               defaultValue={0}
               id="group-books"
               onChange={(e) => handleSortChange(e.target.value)}
+              value={sortedValue}
             >
               <MenuItem value={0}>
                 <em>Domyślnie</em>
@@ -87,8 +105,8 @@ function Sidebar({
               <MenuItem value={3}>Tytuł od A do Z</MenuItem>
               <MenuItem value={4}>Tytuł od Z do A</MenuItem>
               <ListSubheader>Daty</ListSubheader>
-              <MenuItem value={5}>Tytuł od najnowszych</MenuItem>
-              <MenuItem value={6}>Tytuł od najstarszych</MenuItem>
+              <MenuItem value={5}>Data od najnowszych</MenuItem>
+              <MenuItem value={6}>Data od najstarszych</MenuItem>
             </Select>
           </FormControl>
         </div>
