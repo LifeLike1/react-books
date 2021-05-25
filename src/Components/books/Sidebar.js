@@ -56,6 +56,28 @@ function Sidebar({
           )
         );
         break;
+      case 5:
+        setAllBooks(
+          [...allBooks].sort((a, b) =>
+            b.release_date > a.release_date
+              ? 1
+              : a.release_date > b.release_date
+              ? -1
+              : 0
+          )
+        );
+        break;
+      case 6:
+        setAllBooks(
+          [...allBooks].sort((a, b) =>
+            a.release_date > b.release_date
+              ? 1
+              : b.release_date > a.release_date
+              ? -1
+              : 0
+          )
+        );
+        break;
       default:
         setAllBooks(nonChangeableBooks);
         break;
