@@ -12,28 +12,28 @@ function Elementlist({
   pageDisplay,
   setPageDisplay,
   selectedFilters,
-  setIndexFrom,
-  indexFrom,
-  setIndexTo,
-  indexTo,
+  indexes,
+  setIndexes,
   booksPerPage,
   setSortedValue,
 }) {
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
-
-    setIndexFrom(startIndex);
-    setIndexTo(startIndex + booksPerPage);
+    setIndexes({
+      from: startIndex,
+      to: startIndex + booksPerPage,
+    });
     setPageDisplay(page);
   };
 
   const handleSearchChange = (searchBook) => {
     const books = allBooks.filter((book) => book.title === searchBook);
     setAllBooks(books);
+    setSortedValue(0);
     setPageDisplay(1);
   };
 
-  const handleTextInput = (text) => {
+  const handleAutosearchChange = (text) => {
     if (!text) {
       if (selectedFilters.length) {
         const filtered = nonChangeableBooks.filter((book) =>
@@ -45,15 +45,16 @@ function Elementlist({
   };
 
   useEffect(() => {
-    setIndexFrom(0);
-    setIndexTo(booksPerPage);
+    setIndexes({
+      from: 0,
+      to: booksPerPage,
+    });
     setSortedValue(0);
     setPageDisplay(1);
   }, [
     selectedFilters,
     booksPerPage,
-    setIndexFrom,
-    setIndexTo,
+    setIndexes,
     setPageDisplay,
     setSortedValue,
   ]);
@@ -73,7 +74,7 @@ function Elementlist({
                   label="Szukaj książki.."
                   margin="normal"
                   variant="outlined"
-                  onChange={(e) => handleTextInput(e.target.value)}
+                  onChange={(e) => handleAutosearchChange(e.target.value)}
                 />
               )}
               onChange={(e, selectedElement) =>
@@ -84,7 +85,7 @@ function Elementlist({
           </div>
         </div>
 
-        {allBooks.slice(indexFrom, indexTo).map((book) => (
+        {allBooks.slice(indexes.from, indexes.to).map((book) => (
           <Element elementObj={book} key={book.id} />
         ))}
 

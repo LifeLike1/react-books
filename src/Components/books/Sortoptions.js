@@ -5,7 +5,6 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
-import "./Sidebar.scss";
 
 function Sortoptions({ handleSortChange, sortedValue }) {
   return (

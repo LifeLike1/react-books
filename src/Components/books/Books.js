@@ -11,8 +11,11 @@ function Books() {
   const [nonChangeableBooks, setNonChangeableBooks] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
-  const [indexFrom, setIndexFrom] = useState(0);
-  const [indexTo, setIndexTo] = useState(booksPerPage);
+  const [indexes, setIndexes] = useState({
+    from: 0,
+    to: booksPerPage,
+  });
+
   const [sortedValue, setSortedValue] = useState(0);
 
   useEffect(() => {
@@ -52,10 +55,8 @@ function Books() {
         selectedFilters={selectedFilters}
         pageDisplay={pageDisplay}
         setPageDisplay={setPageDisplay}
-        setIndexFrom={setIndexFrom}
-        indexFrom={indexFrom}
-        setIndexTo={setIndexTo}
-        indexTo={indexTo}
+        indexes={indexes}
+        setIndexes={setIndexes}
         booksPerPage={booksPerPage}
         setSortedValue={setSortedValue}
       />

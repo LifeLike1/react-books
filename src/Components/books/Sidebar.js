@@ -11,6 +11,7 @@ function Sidebar({
   setSortedValue,
   sortedValue,
 }) {
+  // Filter list func
   const handleSelectedFilter = (filterName, filterBool) => {
     filterBool
       ? setSelectedFilters([...selectedFilters, filterName])
@@ -20,6 +21,7 @@ function Sidebar({
     setSortedValue(0);
   };
 
+  // Sort list func
   const handleSortChange = (sortId) => {
     setSortedValue(sortId);
     switch (sortId) {
