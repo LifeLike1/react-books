@@ -13,14 +13,7 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
     response: null,
     success: true,
   });
-  const [errors, setErrors] = useState({
-    title: false,
-    author: false,
-    genre: false,
-    date: false,
-    description: false,
-    link: false,
-  });
+  const [errors, setErrors] = useState([]);
   const formik = useFormik({
     initialValues: {
       title: title,
@@ -31,35 +24,59 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
       link: image_url,
     },
     onSubmit: ({ title, author, genre, date, description, link }) => {
-      axios
-        .put(`http://localhost:5000/api/book/${id}`, {
-          title,
-          author,
-          genre,
-          release_date: date,
-          description,
-          image_url: link,
-        })
-        .then((res) => {
-          return axios
-            .get("http://localhost:5000/api/book")
-            .then((res) => {
-              setNonChangeableBooks(res.data);
-              setAllBooks(res.data);
-              setOpen(true);
-              setResponse({
-                success: true,
-                response: `Zmieniłeś dane z id: ${id}`,
-              });
-            })
-            .catch((e) =>
-              setResponse({
-                success: false,
-                response: `Coś poszło nie tak id: ${id}`,
+      const currentErrors = [];
+      setResponse({ response: null, success: true });
+      if (!title) {
+        currentErrors.push("Tytuł nie może być pusty");
+        console.log(currentErrors);
+      }
+      if (typeof title !== "string")
+        currentErrors.push("Tytuł musi być wyrazem");
+      if (!author) currentErrors.push("Musisz podać autora");
+      if (!genre) currentErrors.push("Musisz podać gatunek");
+      if (typeof genre !== "string")
+        currentErrors.push("Gatunek musi być wyrazem");
+      if (genre.length > 50)
+        currentErrors.push("Gatunek ma maksymalnie 50 znaków");
+      if (!date) currentErrors.push("Musisz podać datę");
+      if (Number.isNaN(Date.parse(date)))
+        currentErrors.push("Musisz podać prawidłową datę");
+      if (!description) currentErrors.push("Musisz podać opis");
+      if (typeof link !== "string") currentErrors.push("Link musi być wyrazem");
+
+      if (!currentErrors.length) {
+        axios
+          .put(`http://localhost:5000/api/book/${id}`, {
+            title,
+            author,
+            genre,
+            release_date: date,
+            description,
+            image_url: link,
+          })
+          .then((res) => {
+            return axios
+              .get("http://localhost:5000/api/book")
+              .then((res) => {
+                setNonChangeableBooks(res.data);
+                setAllBooks(res.data);
+                setOpen(true);
+                setResponse({
+                  success: true,
+                  response: `Zmieniłeś dane z id: ${id}`,
+                });
               })
-            );
-        })
-        .catch((e) => console.log(e));
+              .catch((e) =>
+                setResponse({
+                  success: false,
+                  response: `Coś poszło nie tak id: ${id}`,
+                })
+              );
+          })
+          .catch((e) => console.log(e));
+      } else {
+        setErrors(currentErrors);
+      }
     },
   });
 
@@ -69,6 +86,8 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
 
   const handleClose = () => {
     setOpen(false);
+    setResponse({ response: null, success: true });
+    setErrors([]);
   };
   const body = (
     <div className="modal">
@@ -155,9 +174,16 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
         >
           Edytuj książkę
         </Button>
-        <p className={response.success ? "modal__success" : "modal__fail"}>
-          {response.response}
-        </p>
+        {response.response && (
+          <p className={response.success ? "modal__success" : "modal__fail"}>
+            {response.response}
+          </p>
+        )}
+        {errors.map((error, index) => (
+          <li className="modal__fail" key={index}>
+            {error}
+          </li>
+        ))}
       </form>
     </div>
   );

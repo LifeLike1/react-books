@@ -59,7 +59,7 @@ function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
       <section className="informations">
         <h1>{`${title} - ${genre}`}</h1>
         <h3>{`Autor: ${author}`}</h3>
-        <h3>{`Pierwsze wydanie: ${release_date}`}</h3>
+        <h3>{`Pierwsze wydanie: ${release_date.substr(0, 10)}`}</h3>
         <h3>Oddaj swój głos!</h3>
         <Rating
           name={title + id}
@@ -68,7 +68,7 @@ function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
           onChange={(e) => addRating(id, e.target.value)}
           disabled={rateDisabled}
         />
-        <h2>{ratingResponse}</h2>
+        {ratingResponse && <h2>{ratingResponse}</h2>}
         <img src={image_url} alt={title} className="informations__image" />
       </section>
       <section className="description">
