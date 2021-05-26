@@ -4,10 +4,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import EditBookForm from "./EditBookForm";
 import "./ElementDetails.scss";
 
-function Book() {
+function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
   const { id } = useParams();
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/book/${id}`)
+      .then((res) => setBookValues(res.data))
+      .catch((e) => setBookValues({ error: e }));
+  }, [id]);
   const [bookValues, setBookValues] = useState({});
 
   const {
@@ -21,15 +28,9 @@ function Book() {
   } = bookValues;
 
   const [ratingResponse, setRatingResponse] = useState(null);
+
   const [rate, setRate] = useState(rating);
   const [rateDisabled, setRateDisabled] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/book/${id}`)
-      .then((res) => setBookValues(res.data))
-      .catch((e) => setBookValues({ error: e }));
-  }, [id]);
 
   useEffect(() => {
     axios
@@ -59,7 +60,7 @@ function Book() {
       <section className="informations">
         <h1>{`${title} - ${genre}`}</h1>
         <h3>{`Autor: ${author}`}</h3>
-        <h3>{`Pierwsze wydanie: ${release_date.substr(0, 10)}`}</h3>
+        <h3>{`Pierwsze wydanie: ${release_date}`}</h3>
         <h3>Oddaj swój głos!</h3>
         <Rating
           name={title + id}
@@ -79,4 +80,4 @@ function Book() {
   );
 }
 
-export default Book;
+export default ElementDetails;

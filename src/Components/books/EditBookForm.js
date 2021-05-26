@@ -2,26 +2,54 @@ import { Button, Modal, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { useState } from "react";
 import { useFormik } from "formik";
-import "./EditBookForm.scss";
-import { Link } from "react-router-dom";
+import "./Modal.scss";
+import axios from "axios";
 
-function EditBookForm({ elementObj }) {
+function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
   const { id, title, genre, author, release_date, description, image_url } =
     elementObj;
   const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState({
+    title: false,
+    author: false,
+    genre: false,
+    date: false,
+    description: false,
+    link: false,
+  });
   const formik = useFormik({
     initialValues: {
-      title: "",
-      author: "",
-      genre: "",
-      date: "",
-      description: "",
-      link: "",
+      title: title,
+      author: author,
+      genre: genre,
+      date: release_date.substr(0, 10),
+      description: description.substr(0, 30),
+      link: image_url,
     },
-    onSubmit: (values) => {
-      console.log(JSON.stringify(values));
+    onSubmit: ({ title, author, genre, date, description, link }) => {
+      axios
+        .put(`http://localhost:5000/api/book/${id}`, {
+          title,
+          author,
+          genre,
+          release_date: date,
+          description,
+          image_url: link,
+        })
+        .then((res) => {
+          return axios
+            .get("http://localhost:5000/api/book")
+            .then((res) => {
+              setAllBooks(res.data);
+              setOpen(true);
+              setNonChangeableBooks(res.data);
+            })
+            .catch((e) => console.log(e.response));
+        })
+        .catch((e) => console.log(e));
     },
   });
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -34,7 +62,7 @@ function EditBookForm({ elementObj }) {
       <div className="modal__back" onClick={handleClose}>
         <Close /> <h4>Wróć</h4>
       </div>
-      <h2 id="modal__title-name">Edytujesz: {title}</h2>
+      <h2 id="modal__title-name">{title}</h2>
       <form className="submit-form" onSubmit={formik.handleSubmit}>
         <TextField
           id="title"

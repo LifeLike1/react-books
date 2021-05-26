@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import EditBookForm from "./EditBookForm";
 
-function Element({ elementObj }) {
+function Element({ elementObj, setAllBooks, setNonChangeableBooks }) {
   const { id, title, author, release_date, image_url, rating } = elementObj;
   return (
     <div className="element">
@@ -35,7 +35,11 @@ function Element({ elementObj }) {
           readOnly={true}
           precision={0.25}
         />
-        <EditBookForm elementObj={elementObj} />
+        <EditBookForm
+          elementObj={elementObj}
+          setAllBooks={setAllBooks}
+          setNonChangeableBooks={setNonChangeableBooks}
+        />
       </div>
     </div>
   );

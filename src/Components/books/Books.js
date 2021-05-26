@@ -52,6 +52,7 @@ function Books() {
         allBooks={allBooks}
         setAllBooks={setAllBooks}
         nonChangeableBooks={nonChangeableBooks}
+        setNonChangeableBooks={setNonChangeableBooks}
         selectedFilters={selectedFilters}
         pageDisplay={pageDisplay}
         setPageDisplay={setPageDisplay}
