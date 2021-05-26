@@ -9,6 +9,10 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
   const { id, title, genre, author, release_date, description, image_url } =
     elementObj;
   const [open, setOpen] = useState(false);
+  const [response, setResponse] = useState({
+    response: null,
+    success: true,
+  });
   const [errors, setErrors] = useState({
     title: false,
     author: false,
@@ -23,7 +27,7 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
       author: author,
       genre: genre,
       date: release_date.substr(0, 10),
-      description: description.substr(0, 30),
+      description: description,
       link: image_url,
     },
     onSubmit: ({ title, author, genre, date, description, link }) => {
@@ -40,11 +44,20 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
           return axios
             .get("http://localhost:5000/api/book")
             .then((res) => {
+              setNonChangeableBooks(res.data);
               setAllBooks(res.data);
               setOpen(true);
-              setNonChangeableBooks(res.data);
+              setResponse({
+                success: true,
+                response: `Zmieniłeś dane z id: ${id}`,
+              });
             })
-            .catch((e) => console.log(e.response));
+            .catch((e) =>
+              setResponse({
+                success: false,
+                response: `Coś poszło nie tak id: ${id}`,
+              })
+            );
         })
         .catch((e) => console.log(e));
     },
@@ -142,6 +155,9 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
         >
           Edytuj książkę
         </Button>
+        <p className={response.success ? "modal__success" : "modal__fail"}>
+          {response.response}
+        </p>
       </form>
     </div>
   );

@@ -9,6 +9,12 @@
   transform: translate(-50%, -50%);
   background-color: lighten($background-card-color, 10%);
   border: 2px solid #000;
+  &__success {
+    color: $success-color;
+  }
+  &__fail {
+    color: $fail-color;
+  }
   &__back {
     position: absolute;
     display: flex;
