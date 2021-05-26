@@ -1,7 +1,7 @@
 import "./Element.scss";
-import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
+import EditBookForm from "./EditBookForm";
 
 function Element({ elementObj }) {
   const { id, title, author, release_date, image_url, rating } = elementObj;
@@ -35,9 +35,7 @@ function Element({ elementObj }) {
           readOnly={true}
           precision={0.25}
         />
-        <Button variant="contained" color="secondary">
-          Button2
-        </Button>
+        <EditBookForm elementObj={elementObj} />
       </div>
     </div>
   );

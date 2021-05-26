@@ -66,4 +66,10 @@
       overflow: auto;
     }
   }
+  .modal {
+    position: "absolute";
+    width: 400px;
+    background-color: $background-card-color;
+    border: "2px solid #000";
+  }
 }
