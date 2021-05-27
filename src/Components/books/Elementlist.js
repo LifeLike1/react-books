@@ -87,12 +87,7 @@ function Elementlist({
         </div>
 
         {allBooks.slice(indexes.from, indexes.to).map((book) => (
-          <Element
-            elementObj={book}
-            key={book.id}
-            setAllBooks={setAllBooks}
-            setNonChangeableBooks={setNonChangeableBooks}
-          />
+          <Element elementObj={book} key={book.id} />
         ))}
 
         <Pagination

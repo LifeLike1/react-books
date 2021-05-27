@@ -18,7 +18,7 @@ export const getSingleBookAPI = async (id) => {
   }
 };
 
-export const postSingleBookAPI = async (id, rating) => {
+export const postSingleBookRateAPI = async (id, rating) => {
   try {
     const response = await axios.post(
       `http://localhost:5000/api/book/${id}/rate`,
@@ -26,6 +26,15 @@ export const postSingleBookAPI = async (id, rating) => {
         score: parseFloat(rating),
       }
     );
+    return response.data;
+  } catch (e) {
+    return [];
+  }
+};
+
+export const postSingleBookAPI = async (values) => {
+  try {
+    const response = await axios.post("http://localhost:5000/api/book", values);
     return response.data;
   } catch (e) {
     return [];

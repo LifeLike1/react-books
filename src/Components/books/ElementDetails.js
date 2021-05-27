@@ -3,7 +3,7 @@ import { Rating } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { getSingleBookAPI, postSingleBookAPI } from "../static/requests";
+import { getSingleBookAPI, postSingleBookRateAPI } from "../static/requests";
 import "./ElementDetails.scss";
 
 function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
@@ -41,7 +41,7 @@ function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
 
   const addRating = (id, rating) => {
     const fetchData = async () => {
-      await postSingleBookAPI(id, rating);
+      await postSingleBookRateAPI(id, rating);
     };
     fetchData();
     setRatingResponse(`Dodano rating dla ${id}`);

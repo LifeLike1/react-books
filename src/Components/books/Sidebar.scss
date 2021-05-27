@@ -41,4 +41,10 @@
       border-color: transparent;
     }
   }
+  &__add-book {
+    @include sidebar-card;
+    @include flex-center-column;
+    margin-top: 3vh;
+    padding: 15px 0 15px 0;
+  }
 }

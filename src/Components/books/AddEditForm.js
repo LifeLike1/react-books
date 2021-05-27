@@ -2,12 +2,31 @@ import { Button, Modal, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { useState } from "react";
 import { useFormik } from "formik";
-import { getBooksAPI, putSingleBookAPI } from "../static/requests";
+import {
+  getBooksAPI,
+  putSingleBookAPI,
+  postSingleBookAPI,
+} from "../static/requests";
 import "./Modal.scss";
 
-function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
-  const { id, title, genre, author, release_date, description, image_url } =
-    elementObj;
+function AddEditForm({
+  elementObj = {},
+  setAllBooks,
+  setNonChangeableBooks,
+  buttonTitle,
+}) {
+  const {
+    id = null,
+    title = "",
+    genre = "",
+    author = "",
+    release_date = "",
+    description = "",
+    image_url = "",
+  } = elementObj;
+
+  const requestChoice = id === null ? "add" : "edit";
+
   const [open, setOpen] = useState(false);
   const [response, setResponse] = useState({
     response: null,
@@ -19,11 +38,12 @@ function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
       title: title,
       author: author,
       genre: genre,
-      date: release_date.substr(0, 10),
-      description: description,
+      date: release_date ? release_date.substr(0, 10) : "",
+      description: description ? `${description.substr(0, 30)}...` : "",
       link: image_url,
     },
     onSubmit: ({ title, author, genre, date, description, link }) => {
+      // Errors handling
       const currentErrors = [];
       setResponse({ response: null, success: true });
       if (!title) currentErrors.push("Tytuł nie może być pusty");
@@ -41,33 +61,63 @@ function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
       if (!description) currentErrors.push("Musisz podać opis");
       if (typeof link !== "string") currentErrors.push("Link musi być wyrazem");
 
+      // no errors
       if (!currentErrors.length) {
-        const fetchData = async () => {
-          const putResponse = await putSingleBookAPI(id, {
-            title,
-            author,
-            genre,
-            release_date: date,
-            description,
-            image_url: link,
-          });
-          if (putResponse) {
-            const getResponse = await getBooksAPI();
-            setNonChangeableBooks(getResponse);
-            setAllBooks(getResponse);
-            setOpen(true);
-            setResponse({
-              success: true,
-              response: `Zmieniłeś dane z id: ${id}`,
+        if (requestChoice === "edit") {
+          const fetchData = async () => {
+            const putResponse = await putSingleBookAPI(id, {
+              title: title.trim(),
+              author: author.trim(),
+              genre: genre.trim(),
+              release_date: date.trim(),
+              description: description.toLowerCase().replace(/\s/g, ""),
+              image_url: link.trim(),
             });
-          } else {
-            setResponse({
-              success: false,
-              response: `Coś poszło nie tak id: ${id}`,
+            if (putResponse) {
+              const getResponse = await getBooksAPI();
+              setNonChangeableBooks(getResponse);
+              setAllBooks(getResponse);
+              setOpen(true);
+              setResponse({
+                success: true,
+                response: `Zmieniłeś dane z id: ${id}`,
+              });
+            } else {
+              setResponse({
+                success: false,
+                response: `Coś poszło nie tak id: ${id}`,
+              });
+            }
+          };
+          fetchData();
+        } else if (requestChoice === "add") {
+          const fetchData = async () => {
+            const postResponse = await postSingleBookAPI({
+              title,
+              author,
+              genre,
+              release_date: date,
+              description,
+              image_url: link,
             });
-          }
-        };
-        fetchData();
+            if (postResponse) {
+              const getResponse = await getBooksAPI();
+              setNonChangeableBooks(getResponse);
+              setAllBooks(getResponse);
+              setOpen(true);
+              setResponse({
+                success: true,
+                response: `Dodałeś: ${title}`,
+              });
+            } else {
+              setResponse({
+                success: false,
+                response: `Nie udało się dodać: ${title}`,
+              });
+            }
+          };
+          fetchData();
+        }
       } else {
         setErrors(currentErrors);
       }
@@ -130,7 +180,7 @@ function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
           id="date"
           name="date"
           label="Data wydania"
-          placeholder={release_date.substr(0, 10)}
+          placeholder={release_date}
           color="secondary"
           className="submit-form__input"
           onChange={formik.handleChange}
@@ -141,7 +191,7 @@ function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
           id="description"
           name="description"
           label="Opis"
-          placeholder={`${description.substr(0, 30)}...`}
+          placeholder={description}
           color="secondary"
           className="submit-form__input"
           onChange={formik.handleChange}
@@ -166,7 +216,7 @@ function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
           type="submit"
           className="submit-form__button"
         >
-          Edytuj książkę
+          {buttonTitle}
         </Button>
         {response.response && (
           <p className={response.success ? "modal__success" : "modal__fail"}>
@@ -184,7 +234,7 @@ function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
   return (
     <div>
       <Button variant="contained" color="secondary" onClick={handleOpen}>
-        Edytuj książkę
+        {buttonTitle}
       </Button>
       <Modal
         open={open}

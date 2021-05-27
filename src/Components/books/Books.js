@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import "./Books.scss";
 import Elementlist from "./Elementlist";
 import Sidebar from "./Sidebar";
 import { getBooksAPI } from "../static/requests";
+import "./Books.scss";
 
 function Books() {
   const booksPerPage = 3;
@@ -40,6 +40,7 @@ function Books() {
     <main className="books-container">
       <Sidebar
         nonChangeableBooks={nonChangeableBooks}
+        setNonChangeableBooks={setNonChangeableBooks}
         allBooks={allBooks}
         setAllBooks={setAllBooks}
         setSelectedFilters={setSelectedFilters}

@@ -1,9 +1,11 @@
+import AddEditForm from "./AddEditForm";
 import Filtersection from "./Filtersection";
 import "./Sidebar.scss";
 import Sortoptions from "./Sortoptions";
 
 function Sidebar({
   nonChangeableBooks,
+  setNonChangeableBooks,
   allBooks,
   setAllBooks,
   setSelectedFilters,
@@ -87,6 +89,13 @@ function Sidebar({
           handleSortChange={handleSortChange}
           sortedValue={sortedValue}
         />
+        <div className="sidebar__add-book">
+          <AddEditForm
+            setAllBooks={setAllBooks}
+            setNonChangeableBooks={setNonChangeableBooks}
+            buttonTitle="Dodaj książkę"
+          />
+        </div>
       </aside>
     </>
   );
