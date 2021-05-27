@@ -1,18 +1,19 @@
 import { SvgIcon } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { getSingleBookAPI, postSingleBookAPI } from "../static/requests";
 import "./ElementDetails.scss";
 
 function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
   const { id } = useParams();
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/book/${id}`)
-      .then((res) => setBookValues(res.data))
-      .catch((e) => setBookValues({ error: e }));
+    const fetchData = async () => {
+      const response = await getSingleBookAPI(id);
+      setBookValues(response);
+    };
+    fetchData();
   }, [id]);
   const [bookValues, setBookValues] = useState({});
 
@@ -27,24 +28,23 @@ function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
   } = bookValues;
 
   const [ratingResponse, setRatingResponse] = useState(null);
-
   const [rate, setRate] = useState(rating);
   const [rateDisabled, setRateDisabled] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/book/${id}`)
-      .then((res) => setRate(res.data.rating))
-      .catch((e) => setRate(null));
+    const fetchData = async () => {
+      const response = await getSingleBookAPI(id);
+      setRate(response.rating);
+    };
+    fetchData();
   }, [ratingResponse, id]);
 
   const addRating = (id, rating) => {
-    axios
-      .post(`http://localhost:5000/api/book/${id}/rate`, {
-        score: parseFloat(rating),
-      })
-      .then((res) => setRatingResponse(`Dodano rating dla ${id}`))
-      .catch((e) => setRatingResponse(`Nie udało się dodać ratingu dla ${id}`));
+    const fetchData = async () => {
+      await postSingleBookAPI(id, rating);
+    };
+    fetchData();
+    setRatingResponse(`Dodano rating dla ${id}`);
     setRateDisabled(true);
   };
 

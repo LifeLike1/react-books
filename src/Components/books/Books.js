@@ -1,9 +1,9 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import "./Books.scss";
 import Elementlist from "./Elementlist";
 import Sidebar from "./Sidebar";
+import { getBooksAPI } from "../static/requests";
 
 function Books() {
   const booksPerPage = 3;
@@ -28,13 +28,12 @@ function Books() {
   }, [selectedFilters, nonChangeableBooks]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/book")
-      .then((res) => {
-        setAllBooks(res.data);
-        setNonChangeableBooks(res.data);
-      })
-      .catch((e) => console.log(e.response));
+    const fetchBooks = async () => {
+      const response = await getBooksAPI();
+      setAllBooks(response);
+      setNonChangeableBooks(response);
+    };
+    fetchBooks();
   }, []);
 
   return (

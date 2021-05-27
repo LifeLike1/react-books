@@ -2,10 +2,10 @@ import { Button, Modal, TextField } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { useState } from "react";
 import { useFormik } from "formik";
+import { getBooksAPI, putSingleBookAPI } from "../static/requests";
 import "./Modal.scss";
-import axios from "axios";
 
-function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
+function AddEditForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
   const { id, title, genre, author, release_date, description, image_url } =
     elementObj;
   const [open, setOpen] = useState(false);
@@ -26,10 +26,7 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
     onSubmit: ({ title, author, genre, date, description, link }) => {
       const currentErrors = [];
       setResponse({ response: null, success: true });
-      if (!title) {
-        currentErrors.push("Tytuł nie może być pusty");
-        console.log(currentErrors);
-      }
+      if (!title) currentErrors.push("Tytuł nie może być pusty");
       if (typeof title !== "string")
         currentErrors.push("Tytuł musi być wyrazem");
       if (!author) currentErrors.push("Musisz podać autora");
@@ -45,35 +42,32 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
       if (typeof link !== "string") currentErrors.push("Link musi być wyrazem");
 
       if (!currentErrors.length) {
-        axios
-          .put(`http://localhost:5000/api/book/${id}`, {
+        const fetchData = async () => {
+          const putResponse = await putSingleBookAPI(id, {
             title,
             author,
             genre,
             release_date: date,
             description,
             image_url: link,
-          })
-          .then((res) => {
-            return axios
-              .get("http://localhost:5000/api/book")
-              .then((res) => {
-                setNonChangeableBooks(res.data);
-                setAllBooks(res.data);
-                setOpen(true);
-                setResponse({
-                  success: true,
-                  response: `Zmieniłeś dane z id: ${id}`,
-                });
-              })
-              .catch((e) =>
-                setResponse({
-                  success: false,
-                  response: `Coś poszło nie tak id: ${id}`,
-                })
-              );
-          })
-          .catch((e) => console.log(e));
+          });
+          if (putResponse) {
+            const getResponse = await getBooksAPI();
+            setNonChangeableBooks(getResponse);
+            setAllBooks(getResponse);
+            setOpen(true);
+            setResponse({
+              success: true,
+              response: `Zmieniłeś dane z id: ${id}`,
+            });
+          } else {
+            setResponse({
+              success: false,
+              response: `Coś poszło nie tak id: ${id}`,
+            });
+          }
+        };
+        fetchData();
       } else {
         setErrors(currentErrors);
       }
@@ -203,4 +197,4 @@ function EditBookForm({ elementObj, setAllBooks, setNonChangeableBooks }) {
   );
 }
 
-export default EditBookForm;
+export default AddEditForm;

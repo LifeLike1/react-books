@@ -1,7 +1,7 @@
 import "./Element.scss";
 import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
-import EditBookForm from "./EditBookForm";
+import AddEditForm from "./AddEditForm";
 
 function Element({ elementObj, setAllBooks, setNonChangeableBooks }) {
   const { id, title, author, release_date, image_url, rating } = elementObj;
@@ -35,7 +35,7 @@ function Element({ elementObj, setAllBooks, setNonChangeableBooks }) {
           readOnly={true}
           precision={0.25}
         />
-        <EditBookForm
+        <AddEditForm
           elementObj={elementObj}
           setAllBooks={setAllBooks}
           setNonChangeableBooks={setNonChangeableBooks}
