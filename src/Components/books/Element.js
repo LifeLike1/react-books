@@ -35,7 +35,12 @@ function Element({ elementObj }) {
           readOnly={true}
           precision={0.25}
         />
-        <Link to={`/book/${id}`} className="element__link">
+        <Link
+          to={{
+            pathname: `/book/${id}`,
+          }}
+          className="element__link"
+        >
           <Button variant="contained" color="primary">
             Więcej..
           </Button>

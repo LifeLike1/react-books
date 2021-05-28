@@ -1,13 +1,15 @@
 import { SvgIcon } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { getSingleBookAPI, postSingleBookRateAPI } from "../static/requests";
+import AddEditForm from "./AddEditForm";
 import "./ElementDetails.scss";
 
-function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
+function ElementDetails() {
   const { id } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await getSingleBookAPI(id);
@@ -69,6 +71,13 @@ function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
           disabled={rateDisabled}
         />
         {ratingResponse && <h2>{ratingResponse}</h2>}
+        <AddEditForm
+          elementObj={{ ...bookValues, id }}
+          // setAllBooks={setAllBooks}
+          // setNonChangeableBooks={setNonChangeableBooks}
+          setBookValues={setBookValues}
+          buttonTitle="Edytuj książkę"
+        />
         <img src={image_url} alt={title} className="informations__image" />
       </section>
       <section className="description">
@@ -79,4 +88,4 @@ function ElementDetails({ setAllBooks, setNonChangeableBooks }) {
   );
 }
 
-export default ElementDetails;
+export default withRouter(ElementDetails);

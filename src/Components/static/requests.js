@@ -52,3 +52,12 @@ export const putSingleBookAPI = async (id, values) => {
     return [];
   }
 };
+
+export const deleteSingleBookAPI = async (id) => {
+  try {
+    const response = await axios.delete(`http://localhost:5000/api/book/${id}`);
+    return response.data;
+  } catch (e) {
+    return [];
+  }
+};
