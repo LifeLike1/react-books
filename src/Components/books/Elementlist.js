@@ -65,7 +65,7 @@ function Elementlist({
       <section className="elements">
         <div className="elements__container">
           <h1 className="elements__title">Lista książek</h1>
-          <div>
+          <div className="elements__search-main">
             <Autocomplete
               id="elements__auto-complete"
               options={allBooks.map((book) => book.title)}

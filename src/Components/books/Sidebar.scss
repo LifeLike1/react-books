@@ -4,15 +4,31 @@
   @include flex-center-column;
   &__title {
     font-size: 1.5rem;
+    order: 1;
   }
   &__filter-container {
     @include sidebar-card;
+    order: 2;
+  }
+  &__option {
+    @media (max-width: $very-small-screen-res - 1) {
+      width: 100%;
+    }
   }
   &__filters {
     display: grid;
-    grid-template-columns: 50% 50%;
     row-gap: 1vh;
     padding: 10px;
+    @include scroll-bar;
+
+    @media (min-width: $very-small-screen-res) {
+      grid-template-columns: 50% 50%;
+    }
+    @media (max-width: $very-small-screen-res - 1) {
+      grid-template-columns: 100%;
+      max-height: 200px;
+      overflow: auto;
+    }
   }
   &__inside-title {
     text-align: center;
@@ -23,10 +39,10 @@
   &__sort {
     @include sidebar-card;
     @include flex-center-column;
+    order: 3;
     margin-top: 3vh;
     padding-bottom: 2vh;
     .MuiFormControl-root,
-    .MuiFormLabel-root,
     .MuiInputBase-input {
       color: $primary-color;
     }
@@ -44,6 +60,7 @@
   &__add-book {
     @include sidebar-card;
     @include flex-center-column;
+    order: 4;
     margin-top: 3vh;
     padding: 15px 0 15px 0;
   }

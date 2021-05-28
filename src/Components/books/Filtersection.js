@@ -14,6 +14,7 @@ function Filtersection({ nonChangeableBooks, handleSelectedFilter }) {
           {uniqueFilters.map((filter, index) => (
             <FormControlLabel
               key={index}
+              className="sidebar__option"
               control={
                 <Checkbox
                   name={filter}

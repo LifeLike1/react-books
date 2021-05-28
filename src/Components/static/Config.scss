@@ -1,3 +1,5 @@
+// colors
+
 $primary-color: #fff;
 $background-color: #111111;
 $navbar-color: #000;
@@ -9,14 +11,42 @@ $success-color: rgb(22, 175, 22);
 $fail-color: rgb(226, 59, 59);
 $star-background-color: darken($background-card-color, 15%);
 
+// screen resolutions
+$big-screen-res: 1920px;
+$medium-screen-res: 1366px;
+$small-screen-res: 720px;
+$very-small-screen-res: 375px;
+
+// mixins
+
 @mixin sidebar-card {
+  @media (max-width: $very-small-screen-res - 1) {
+    width: 70%;
+  }
+  @media (min-width: $very-small-screen-res) {
+    width: 90%;
+  }
   background-color: $background-card-color;
   border-radius: 10px;
-  width: 90%;
 }
 
 @mixin flex-center-column {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@mixin scroll-bar {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #111111;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }

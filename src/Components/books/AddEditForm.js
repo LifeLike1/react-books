@@ -38,7 +38,7 @@ function AddEditForm({
       author: author,
       genre: genre,
       date: release_date.substr(0, 10),
-      description: `${description.substr(0, 30)}...`,
+      description: description && `${description.substr(0, 30)}...`,
       link: image_url,
     },
     onSubmit: ({ title, author, genre, date, description, link }) => {

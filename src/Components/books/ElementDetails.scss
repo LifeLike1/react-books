@@ -4,7 +4,11 @@
   margin: 0 auto;
   background-color: $background-card-color;
   border-radius: 10px;
+  @media (max-width: $small-screen-res) {
+    grid-template-columns: 100%;
+  }
   grid-template-columns: 60% 40%;
+  width: 90%;
   display: grid;
   position: relative;
   margin-top: 5vh;
@@ -27,6 +31,10 @@
     &__image {
       width: 300px;
     }
+    &__buttons {
+      display: flex;
+      gap: 1vh;
+    }
     .MuiRating-iconEmpty {
       color: lighten($star-background-color, 25%);
     }
@@ -44,18 +52,7 @@
     border-bottom-right-radius: 10px;
     background-color: $navbar-color;
     /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #111111;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
+    @include scroll-bar;
     &__title {
       letter-spacing: 0.3rem;
     }

@@ -5,5 +5,10 @@
   margin: 0 auto;
   display: grid;
   justify-content: center;
-  grid-template-columns: 1fr 2fr;
+  @media (max-width: $medium-screen-res - 1) {
+    grid-template-columns: 100%;
+  }
+  @media (min-width: $medium-screen-res) {
+    grid-template-columns: 1fr 2fr;
+  }
 }

@@ -4,7 +4,15 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 25vw;
+  @media (max-width: $small-screen-res - 1) {
+    width: 55%;
+  }
+  @media (min-width: $small-screen-res) and (max-width: $medium-screen-res - 1) {
+    width: 35%;
+  }
+  @media (min-width: $medium-screen-res) {
+    width: 20%;
+  }
   padding: 20px;
   transform: translate(-50%, -50%);
   background-color: lighten($background-card-color, 10%);

@@ -1,4 +1,4 @@
-import { SvgIcon } from "@material-ui/core";
+import { Button, SvgIcon } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useParams, withRouter } from "react-router";
@@ -68,15 +68,20 @@ function ElementDetails() {
           disabled={rateDisabled}
         />
         {ratingResponse && <h2>{ratingResponse}</h2>}
-        {bookValues && (
-          <AddEditForm
-            elementObj={{ ...bookValues, id }}
-            // setAllBooks={setAllBooks}
-            // setNonChangeableBooks={setNonChangeableBooks}
-            setBookValues={setBookValues}
-            buttonTitle="Edytuj książkę"
-          />
-        )}
+        <div className="informations__buttons">
+          {bookValues && (
+            <AddEditForm
+              elementObj={{ ...bookValues, id }}
+              // setAllBooks={setAllBooks}
+              // setNonChangeableBooks={setNonChangeableBooks}
+              setBookValues={setBookValues}
+              buttonTitle="Edytuj książkę"
+            />
+          )}
+          <Button variant="contained" color="primary">
+            Usuń książkę
+          </Button>
+        </div>
         <img src={image_url} alt={title} className="informations__image" />
       </section>
       <section className="description">

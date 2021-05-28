@@ -2,10 +2,20 @@
 .elements {
   @include flex-center-column;
   &__container {
+    @media (max-width: $medium-screen-res) {
+      width: 90%;
+      grid-template-columns: 100%;
+    }
     width: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
     justify-content: space-between;
+  }
+  &__search-main {
+    @media (min-width: $small-screen-res) and (max-width: $medium-screen-res) {
+      width: 50%;
+      align-self: center;
+    }
   }
   &__pagination {
     margin: 2vh;

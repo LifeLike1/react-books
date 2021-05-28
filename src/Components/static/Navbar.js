@@ -13,15 +13,6 @@ function Navbar() {
           <Link to="/books" className="navbar__item">
             Books
           </Link>
-          <Link to="/" className="navbar__item">
-            More info
-          </Link>
-          <Link to="/" className="navbar__item">
-            About
-          </Link>
-          <Link to="/" className="navbar__item">
-            Contact
-          </Link>
         </ul>
       </div>
     </nav>
