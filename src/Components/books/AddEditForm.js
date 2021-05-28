@@ -18,14 +18,13 @@ function AddEditForm({
 }) {
   const {
     id = null,
-    title,
-    genre,
+    title = "",
+    genre = "",
     author = "",
     release_date = "",
     description = "",
     image_url = "",
   } = elementObj;
-
   const requestChoice = id === null ? "add" : "edit";
   const [open, setOpen] = useState(false);
   const [response, setResponse] = useState({
@@ -38,8 +37,8 @@ function AddEditForm({
       title: title,
       author: author,
       genre: genre,
-      date: release_date ? release_date.substr(0, 10) : "",
-      description: description ? `${description.substr(0, 30)}...` : "",
+      date: release_date.substr(0, 10),
+      description: `${description.substr(0, 30)}...`,
       link: image_url,
     },
     onSubmit: ({ title, author, genre, date, description, link }) => {
