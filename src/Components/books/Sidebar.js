@@ -12,6 +12,7 @@ function Sidebar({
   selectedFilters,
   setSortedValue,
   sortedValue,
+  loadingErrors,
 }) {
   // Filter list func
   const handleSelectedFilter = (filterName, filterBool) => {
@@ -79,25 +80,27 @@ function Sidebar({
   };
 
   return (
-    <>
-      <aside className="sidebar">
-        <Filtersection
-          nonChangeableBooks={nonChangeableBooks}
-          handleSelectedFilter={handleSelectedFilter}
-        />
-        <Sortoptions
-          handleSortChange={handleSortChange}
-          sortedValue={sortedValue}
-        />
-        <div className="sidebar__add-book">
-          <AddEditForm
-            setAllBooks={setAllBooks}
-            setNonChangeableBooks={setNonChangeableBooks}
-            buttonTitle="Dodaj książkę"
+    <aside className="sidebar">
+      {!loadingErrors.allBooks && (
+        <>
+          <Filtersection
+            nonChangeableBooks={nonChangeableBooks}
+            handleSelectedFilter={handleSelectedFilter}
           />
-        </div>
-      </aside>
-    </>
+          <Sortoptions
+            handleSortChange={handleSortChange}
+            sortedValue={sortedValue}
+          />
+          <div className="sidebar__add-book">
+            <AddEditForm
+              setAllBooks={setAllBooks}
+              setNonChangeableBooks={setNonChangeableBooks}
+              buttonTitle="Dodaj książkę"
+            />
+          </div>
+        </>
+      )}
+    </aside>
   );
 }
 

@@ -29,7 +29,8 @@
     align-items: center;
     margin: 5vh;
     &__image {
-      width: 300px;
+      max-width: 300px;
+      margin-top: 3vh;
     }
     &__buttons {
       display: flex;
@@ -61,6 +62,11 @@
       text-align: center;
       max-height: 500px;
       overflow: auto;
+    }
+    &__alert {
+      margin-top: 3em;
+      display: flex;
+      justify-content: center;
     }
   }
 }

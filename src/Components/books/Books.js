@@ -4,10 +4,13 @@ import Elementlist from "./Elementlist";
 import Sidebar from "./Sidebar";
 import { getBooksAPI } from "../static/requests";
 import "./Books.scss";
+import { Alert } from "@material-ui/lab";
+import { CircularProgress } from "@material-ui/core";
 
 function Books() {
   const booksPerPage = 3;
   const [allBooks, setAllBooks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [nonChangeableBooks, setNonChangeableBooks] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -15,7 +18,9 @@ function Books() {
     from: 0,
     to: booksPerPage,
   });
-
+  const [loadingErrors, setLoadingErrors] = useState({
+    allBooks: false,
+  });
   const [sortedValue, setSortedValue] = useState(0);
 
   useEffect(() => {
@@ -28,12 +33,24 @@ function Books() {
   }, [selectedFilters, nonChangeableBooks]);
 
   useEffect(() => {
+    setLoading(true);
     const fetchBooks = async () => {
       const response = await getBooksAPI();
-      setAllBooks(response);
-      setNonChangeableBooks(response);
+      if (response) {
+        setAllBooks(response);
+        setNonChangeableBooks(response);
+        setLoadingErrors({
+          ...loadingErrors,
+          allBooks: false,
+          nonChangeableBooks: false,
+        });
+        setLoading(false);
+      } else {
+        setLoadingErrors({ ...loadingErrors, allBooks: true });
+        setLoading(false);
+      }
     };
-    fetchBooks();
+    setTimeout(() => fetchBooks(), 1000);
   }, []);
 
   return (
@@ -47,20 +64,30 @@ function Books() {
         selectedFilters={selectedFilters}
         setSortedValue={setSortedValue}
         sortedValue={sortedValue}
+        loadingErrors={loadingErrors}
       />
-      <Elementlist
-        allBooks={allBooks}
-        setAllBooks={setAllBooks}
-        nonChangeableBooks={nonChangeableBooks}
-        setNonChangeableBooks={setNonChangeableBooks}
-        selectedFilters={selectedFilters}
-        pageDisplay={pageDisplay}
-        setPageDisplay={setPageDisplay}
-        indexes={indexes}
-        setIndexes={setIndexes}
-        booksPerPage={booksPerPage}
-        setSortedValue={setSortedValue}
-      />
+      {!loading ? (
+        <>
+          <Elementlist
+            allBooks={allBooks}
+            setAllBooks={setAllBooks}
+            nonChangeableBooks={nonChangeableBooks}
+            setNonChangeableBooks={setNonChangeableBooks}
+            selectedFilters={selectedFilters}
+            pageDisplay={pageDisplay}
+            setPageDisplay={setPageDisplay}
+            indexes={indexes}
+            setIndexes={setIndexes}
+            booksPerPage={booksPerPage}
+            setSortedValue={setSortedValue}
+            loadingErrors={loadingErrors}
+          />
+        </>
+      ) : (
+        <Alert severity="info" className="books-container__loading">
+          Ładowanie informacji o książkach.. <CircularProgress size="1.25em" />
+        </Alert>
+      )}
     </main>
   );
 }

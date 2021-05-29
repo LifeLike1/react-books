@@ -11,4 +11,9 @@
   @media (min-width: $medium-screen-res) {
     grid-template-columns: 1fr 2fr;
   }
+  &__loading {
+    margin-top: 3vh;
+    margin-left: 3vh;
+    max-height: 50px;
+  }
 }

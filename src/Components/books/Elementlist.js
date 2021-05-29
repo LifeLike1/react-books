@@ -1,5 +1,5 @@
 import { TextField } from "@material-ui/core";
-import { Autocomplete, Pagination } from "@material-ui/lab";
+import { Alert, Autocomplete, Pagination } from "@material-ui/lab";
 import { useEffect } from "react";
 
 import Element from "./Element";
@@ -17,6 +17,7 @@ function Elementlist({
   setIndexes,
   booksPerPage,
   setSortedValue,
+  loadingErrors,
 }) {
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
@@ -64,36 +65,45 @@ function Elementlist({
     <>
       <section className="elements">
         <div className="elements__container">
-          <h1 className="elements__title">Lista książek</h1>
-          <div className="elements__search-main">
-            <Autocomplete
-              id="elements__auto-complete"
-              options={allBooks.map((book) => book.title)}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Szukaj książki.."
-                  margin="normal"
-                  variant="outlined"
-                  onChange={(e) => handleAutosearchChange(e.target.value)}
+          {!loadingErrors.allBooks && (
+            <>
+              <h1 className="elements__title">Lista książek</h1>
+              <div className="elements__search-main">
+                <Autocomplete
+                  id="elements__auto-complete"
+                  options={allBooks.map((book) => book.title)}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Szukaj książki.."
+                      margin="normal"
+                      variant="outlined"
+                      onChange={(e) => handleAutosearchChange(e.target.value)}
+                    />
+                  )}
+                  onChange={(e, selectedElement) =>
+                    handleSearchChange(selectedElement)
+                  }
+                  value={null}
                 />
-              )}
-              onChange={(e, selectedElement) =>
-                handleSearchChange(selectedElement)
-              }
-              value={null}
-            />
-          </div>
+              </div>
+            </>
+          )}
         </div>
-
-        {allBooks.slice(indexes.from, indexes.to).map((book) => (
-          <Element
-            elementObj={book}
-            key={book.id}
-            setAllBooks={setAllBooks}
-            setNonChangeableBooks={setNonChangeableBooks}
-          />
-        ))}
+        {loadingErrors.allBooks ? (
+          <Alert severity="error">Nie udało się wczytać książek!</Alert>
+        ) : (
+          allBooks
+            .slice(indexes.from, indexes.to)
+            .map((book) => (
+              <Element
+                elementObj={book}
+                key={book.id}
+                setAllBooks={setAllBooks}
+                setNonChangeableBooks={setNonChangeableBooks}
+              />
+            ))
+        )}
 
         <Pagination
           count={Math.ceil(allBooks.length / booksPerPage)}

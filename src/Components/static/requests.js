@@ -5,7 +5,7 @@ export const getBooksAPI = async () => {
     const response = await axios.get("http://localhost:5000/api/book");
     return response.data;
   } catch (e) {
-    return [];
+    return undefined;
   }
 };
 
@@ -14,7 +14,7 @@ export const getSingleBookAPI = async (id) => {
     const response = await axios.get(`http://localhost:5000/api/book/${id}`);
     return response.data;
   } catch (e) {
-    return [];
+    return undefined;
   }
 };
 
@@ -28,7 +28,7 @@ export const postSingleBookRateAPI = async (id, rating) => {
     );
     return response.data;
   } catch (e) {
-    return [];
+    return undefined;
   }
 };
 
@@ -37,7 +37,7 @@ export const postSingleBookAPI = async (values) => {
     const response = await axios.post("http://localhost:5000/api/book", values);
     return response.data;
   } catch (e) {
-    return [];
+    return undefined;
   }
 };
 
@@ -49,7 +49,7 @@ export const putSingleBookAPI = async (id, values) => {
     );
     return response.data;
   } catch (e) {
-    return [];
+    return undefined;
   }
 };
 
@@ -58,6 +58,6 @@ export const deleteSingleBookAPI = async (id) => {
     const response = await axios.delete(`http://localhost:5000/api/book/${id}`);
     return response.data;
   } catch (e) {
-    return [];
+    return undefined;
   }
 };
