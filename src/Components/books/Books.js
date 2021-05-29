@@ -67,6 +67,7 @@ function Books() {
         loadingErrors={loadingErrors}
         deleteBookList={deleteBookList}
         setDeleteBookList={setDeleteBookList}
+        setPageDisplay={setPageDisplay}
       />
       {!loading ? (
         <>

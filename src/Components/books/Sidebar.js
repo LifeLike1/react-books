@@ -17,6 +17,7 @@ function Sidebar({
   loadingErrors,
   deleteBookList,
   setDeleteBookList,
+  setPageDisplay,
 }) {
   // Filter list func
   const handleSelectedFilter = (filterName, filterBool) => {
@@ -31,15 +32,20 @@ function Sidebar({
   const handleDeleteButton = () => {
     for (const id of deleteBookList) {
       const deleteData = async () => {
-        const response = await deleteSingleBookAPI(id);
+        await deleteSingleBookAPI(id);
       };
       deleteData();
     }
-    setAllBooks(allBooks.filter((book) => !deleteBookList.includes(book.id)));
+    setAllBooks(
+      nonChangeableBooks.filter((book) => !deleteBookList.includes(book.id))
+    );
     setNonChangeableBooks(
       nonChangeableBooks.filter((book) => !deleteBookList.includes(book.id))
     );
     setDeleteBookList([]);
+    setSortedValue(0);
+    setSelectedFilters([]);
+    setPageDisplay(1);
   };
 
   // Sort list func
