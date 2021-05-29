@@ -8,6 +8,7 @@ function Switches() {
     <Switch>
       <Route path="/" component={Home} exact />
       <Route path="/books" component={Books} />
+      <Route path="/favourite" component={Books} />
       <Route path="/book/:id" component={ElementDetails} />
     </Switch>
   );

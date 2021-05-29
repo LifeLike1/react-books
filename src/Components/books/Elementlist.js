@@ -1,6 +1,6 @@
 import { TextField } from "@material-ui/core";
 import { Alert, Autocomplete, Pagination } from "@material-ui/lab";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Element from "./Element";
 import "./Elementlist.scss";
@@ -9,7 +9,6 @@ function Elementlist({
   allBooks,
   setAllBooks,
   nonChangeableBooks,
-  setNonChangeableBooks,
   pageDisplay,
   setPageDisplay,
   selectedFilters,
@@ -18,7 +17,11 @@ function Elementlist({
   booksPerPage,
   setSortedValue,
   loadingErrors,
+  deleteBookList,
+  setDeleteBookList,
 }) {
+  const [favouriteBooksList, setFavouriteBooksList] = useState([]);
+
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
     setIndexes({
@@ -99,8 +102,10 @@ function Elementlist({
               <Element
                 elementObj={book}
                 key={book.id}
-                setAllBooks={setAllBooks}
-                setNonChangeableBooks={setNonChangeableBooks}
+                favouriteBooksList={favouriteBooksList}
+                setFavouriteBooksList={setFavouriteBooksList}
+                deleteBookList={deleteBookList}
+                setDeleteBookList={setDeleteBookList}
               />
             ))
         )}

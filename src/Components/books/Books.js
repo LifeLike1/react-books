@@ -12,6 +12,7 @@ function Books() {
   const [allBooks, setAllBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [nonChangeableBooks, setNonChangeableBooks] = useState([]);
+  const [deleteBookList, setDeleteBookList] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [indexes, setIndexes] = useState({
@@ -44,11 +45,10 @@ function Books() {
           allBooks: false,
           nonChangeableBooks: false,
         });
-        setLoading(false);
       } else {
         setLoadingErrors({ ...loadingErrors, allBooks: true });
-        setLoading(false);
       }
+      setLoading(false);
     };
     setTimeout(() => fetchBooks(), 1000);
   }, []);
@@ -65,6 +65,8 @@ function Books() {
         setSortedValue={setSortedValue}
         sortedValue={sortedValue}
         loadingErrors={loadingErrors}
+        deleteBookList={deleteBookList}
+        setDeleteBookList={setDeleteBookList}
       />
       {!loading ? (
         <>
@@ -81,6 +83,8 @@ function Books() {
             booksPerPage={booksPerPage}
             setSortedValue={setSortedValue}
             loadingErrors={loadingErrors}
+            deleteBookList={deleteBookList}
+            setDeleteBookList={setDeleteBookList}
           />
         </>
       ) : (

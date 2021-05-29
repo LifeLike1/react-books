@@ -1,7 +1,9 @@
+import { Button } from "@material-ui/core";
 import AddEditForm from "./AddEditForm";
 import Filtersection from "./Filtersection";
 import "./Sidebar.scss";
 import Sortoptions from "./Sortoptions";
+import { deleteSingleBookAPI } from "../static/requests";
 
 function Sidebar({
   nonChangeableBooks,
@@ -13,6 +15,8 @@ function Sidebar({
   setSortedValue,
   sortedValue,
   loadingErrors,
+  deleteBookList,
+  setDeleteBookList,
 }) {
   // Filter list func
   const handleSelectedFilter = (filterName, filterBool) => {
@@ -22,6 +26,20 @@ function Sidebar({
           selectedFilters.filter((filter) => filter !== filterName)
         );
     setSortedValue(0);
+  };
+
+  const handleDeleteButton = () => {
+    for (const id of deleteBookList) {
+      const deleteData = async () => {
+        const response = await deleteSingleBookAPI(id);
+      };
+      deleteData();
+    }
+    setAllBooks(allBooks.filter((book) => !deleteBookList.includes(book.id)));
+    setNonChangeableBooks(
+      nonChangeableBooks.filter((book) => !deleteBookList.includes(book.id))
+    );
+    setDeleteBookList([]);
   };
 
   // Sort list func
@@ -97,6 +115,16 @@ function Sidebar({
               setNonChangeableBooks={setNonChangeableBooks}
               buttonTitle="Dodaj książkę"
             />
+            {deleteBookList.length > 0 && (
+              <Button
+                variant="contained"
+                color="secondary"
+                className="sidebar__delete"
+                onClick={handleDeleteButton}
+              >
+                Usuń książki
+              </Button>
+            )}
           </div>
         </>
       )}

@@ -41,34 +41,28 @@ function ElementDetails() {
         setBookValues(response);
         setRate(response.rating);
         setDetailsErrors({ ...detailsErrors, get: false });
-        setLoading(false);
       } else {
         setDetailsErrors({ ...detailsErrors, get: true });
-        setLoading(false);
       }
+      setLoading(false);
     };
     setTimeout(() => fetchData(), 1000);
   }, [ratingResponse, id, rateDisabled]);
 
   const addRating = (id, rating) => {
     const fetchData = async () => {
-      setLoading(true);
       const postResponse = await postSingleBookRateAPI(id, rating);
       if (postResponse) {
         setDetailsErrors({ ...detailsErrors, post: false });
-        setLoading(false);
       } else {
         setDetailsErrors({ ...detailsErrors, post: true });
-        setLoading(false);
       }
       const response = await getSingleBookAPI(id);
       if (response) {
         setRate(response.rating);
         setDetailsErrors({ ...detailsErrors, get: false });
-        setLoading(false);
       } else {
         setDetailsErrors({ ...detailsErrors, get: true });
-        setLoading(false);
       }
     };
     fetchData();

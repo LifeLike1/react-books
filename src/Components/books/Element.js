@@ -1,9 +1,29 @@
 import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import "./Element.scss";
-import { Button } from "@material-ui/core";
+import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 
-function Element({ elementObj }) {
+function Element({
+  elementObj,
+  favouriteBooksList,
+  setFavouriteBooksList,
+  deleteBookList,
+  setDeleteBookList,
+}) {
+  const handleFavouriteSelect = (selectObj, selectBool) => {
+    selectBool
+      ? setFavouriteBooksList([...favouriteBooksList, selectObj])
+      : setFavouriteBooksList(
+          favouriteBooksList.filter((obj) => obj.id !== selectObj.id)
+        );
+    console.log(favouriteBooksList);
+  };
+  const handleDeleteSelect = (id, selectBool) => {
+    selectBool
+      ? setDeleteBookList([...deleteBookList, id])
+      : setDeleteBookList(deleteBookList.filter((book) => book !== id));
+    console.log(deleteBookList);
+  };
   const { id, title, author, release_date, image_url, rating } = elementObj;
   return (
     <div className="element">
@@ -21,6 +41,13 @@ function Element({ elementObj }) {
           </div>
           <div className="element__author">
             <h3>{author}</h3>
+            <Rating
+              name={title}
+              value={rating}
+              size="large"
+              readOnly={true}
+              precision={0.25}
+            />
           </div>
           <div className="element__date">
             <h4>{release_date.substr(0, 10)}</h4>
@@ -28,13 +55,6 @@ function Element({ elementObj }) {
         </div>
       </div>
       <div className="element__functions">
-        <Rating
-          name={title}
-          value={rating}
-          size="large"
-          readOnly={true}
-          precision={0.25}
-        />
         <Link
           to={{
             pathname: `/book/${id}`,
@@ -45,6 +65,30 @@ function Element({ elementObj }) {
             Więcej..
           </Button>
         </Link>
+        <FormControlLabel
+          className="element__check"
+          control={
+            <Checkbox
+              name="Ulubione"
+              className="element__checkbox"
+              onChange={(e) =>
+                handleFavouriteSelect(elementObj, e.target.checked)
+              }
+            />
+          }
+          label="Ulubione"
+        />
+        <FormControlLabel
+          className="element__check element__check--remove"
+          control={
+            <Checkbox
+              name="Usuń"
+              className="element__checkbox element__checkbox--remove"
+              onChange={(e) => handleDeleteSelect(id, e.target.checked)}
+            />
+          }
+          label="Usuń"
+        />
       </div>
     </div>
   );

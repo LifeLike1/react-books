@@ -1,6 +1,7 @@
 @import "../static/Config.scss";
 
 .sidebar {
+  @include scroll-bar;
   @include flex-center-column;
   &__title {
     font-size: 1.5rem;
@@ -19,15 +20,14 @@
     display: grid;
     row-gap: 1vh;
     padding: 10px;
-    @include scroll-bar;
-
+    overflow: auto;
+    max-height: 400px;
     @media (min-width: $very-small-screen-res) {
       grid-template-columns: 50% 50%;
     }
     @media (max-width: $very-small-screen-res - 1) {
       grid-template-columns: 100%;
       max-height: 200px;
-      overflow: auto;
     }
   }
   &__inside-title {
@@ -56,6 +56,9 @@
     .MuiInput-underline::after {
       border-color: transparent;
     }
+    label + .MuiInput-formControl {
+      margin-top: 0;
+    }
   }
   &__add-book {
     @include sidebar-card;
@@ -63,5 +66,8 @@
     order: 4;
     margin-top: 3vh;
     padding: 15px 0 15px 0;
+    .MuiButtonBase-root:last-of-type {
+      margin-top: 15px;
+    }
   }
 }

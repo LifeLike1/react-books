@@ -134,6 +134,14 @@ function AddEditForm({
     setOpen(false);
     setResponse({ response: null, success: true });
     setErrors([]);
+    if (requestChoice === "add") {
+      formik.values.title = "";
+      formik.values.author = "";
+      formik.values.genre = "";
+      formik.values.date = "";
+      formik.values.description = "";
+      formik.values.link = "";
+    }
   };
   const body = (
     <div className="modal">

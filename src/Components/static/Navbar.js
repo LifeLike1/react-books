@@ -13,6 +13,9 @@ function Navbar() {
           <Link to="/books" className="navbar__item">
             Books
           </Link>
+          <Link to="/books" className="navbar__item">
+            Favourite
+          </Link>
         </ul>
       </div>
     </nav>
