@@ -1,9 +1,8 @@
-import { Button } from "@material-ui/core";
-import AddEditForm from "./AddEditForm";
 import Filtersection from "./Filtersection";
 import "./Sidebar.scss";
 import Sortoptions from "./Sortoptions";
 import { deleteSingleBookAPI } from "../static/requests";
+import Functionalities from "./Functionalities";
 
 function Sidebar({
   nonChangeableBooks,
@@ -115,23 +114,12 @@ function Sidebar({
             handleSortChange={handleSortChange}
             sortedValue={sortedValue}
           />
-          <div className="sidebar__add-book">
-            <AddEditForm
-              setAllBooks={setAllBooks}
-              setNonChangeableBooks={setNonChangeableBooks}
-              buttonTitle="Dodaj książkę"
-            />
-            {deleteBookList.length > 0 && (
-              <Button
-                variant="contained"
-                color="secondary"
-                className="sidebar__delete"
-                onClick={handleDeleteButton}
-              >
-                Usuń książki
-              </Button>
-            )}
-          </div>
+          <Functionalities
+            setAllBooks={setAllBooks}
+            setNonChangeableBooks={setNonChangeableBooks}
+            handleDeleteButton={handleDeleteButton}
+            deleteBookList={deleteBookList}
+          />
         </>
       )}
     </aside>

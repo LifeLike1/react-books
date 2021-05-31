@@ -42,6 +42,7 @@ function Element({
           <div className="element__author">
             <h3>{author}</h3>
             <Rating
+              className="element__star"
               name={title}
               value={rating}
               size="large"

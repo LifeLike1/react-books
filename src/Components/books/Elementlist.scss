@@ -17,14 +17,24 @@
       align-self: center;
     }
   }
+  &__title {
+    display: flex;
+    align-items: center;
+  }
   &__pagination {
     margin: 2vh;
   }
   .MuiPaginationItem-root {
     color: $primary-color;
   }
+  .MuiInputLabel-root.Mui-focused {
+    color: $primary-color;
+  }
   .MuiInputBase-input {
     color: $primary-color;
+  }
+  fieldset.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline {
+    border-color: $remove-button-color;
   }
   .MuiInputLabel-formControl {
     color: $primary-color;
@@ -37,8 +47,11 @@
   }
   .MuiOutlinedInput-notchedOutline {
     border-color: $hover-red-color;
+  }
+  .MuiPaginationItem-textSecondary.Mui-selected {
+    background-color: $favourite-button-color;
     &:hover {
-      border-color: lighten($hover-red-color, 20%);
+      background-color: $hover-favourite-button-color;
     }
   }
 }

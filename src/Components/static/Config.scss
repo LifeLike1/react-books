@@ -1,16 +1,18 @@
 // colors
 
 $primary-color: #fff;
-$background-color: #111111;
-$navbar-color: #000;
+$background-color: #15232e;
+$navbar-color: #1f2935;
 $border-color: #818790;
 $hover-color: rgb(218, 218, 218);
-$hover-red-color: #f50057;
-$background-card-color: #060606;
+$hover-red-color: #ff3d57;
+$background-dark-button: #2c3641;
+$background-card-color: #1f2935;
 $success-color: rgb(22, 175, 22);
-$favourite-button-color: #00a152;
+$favourite-button-color: #22cce2;
+$star-color: #fdbf5e;
 $hover-favourite-button-color: darken($favourite-button-color, 7%);
-$remove-button-color: #ff1744;
+$remove-button-color: #ff3d57;
 $hover-remove-button-color: darken($remove-button-color, 7%);
 $fail-color: rgb(226, 59, 59);
 $star-background-color: darken($background-card-color, 15%);
@@ -53,4 +55,10 @@ $very-small-screen-res: 375px;
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+}
+
+@mixin shadow-card {
+  box-shadow: 0px 4px 6px 1px rgb(23 23 23 / 75%);
+  -webkit-box-shadow: 0px 4px 6px 1px rgb(23 23 23 / 75%);
+  -moz-box-shadow: 0px 4px 6px 1px rgb(23 23 23 / 75%);
 }

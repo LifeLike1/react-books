@@ -5,11 +5,14 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
+import SortIcon from "@material-ui/icons/Sort";
 
 function Sortoptions({ handleSortChange, sortedValue }) {
   return (
     <div className="sidebar__sort">
-      <h3>Posortuj według</h3>
+      <h3 className="sidebar__sub-title">
+        <SortIcon /> Posortuj według
+      </h3>
       <FormControl>
         <InputLabel htmlFor="group-books"></InputLabel>
         <Select
