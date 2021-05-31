@@ -68,25 +68,19 @@ function AddEditForm({
       // no errors
       if (!currentErrors.length) {
         let response;
+        const objValues = {
+          title: title.trim(),
+          author: author.trim(),
+          genre: genre.toLowerCase().trim(),
+          release_date: date.trim(),
+          description: description.trim(),
+          image_url: link.replace(/\s/g, ""),
+        };
         const fetchData = async () => {
           if (requestChoice === "edit") {
-            response = await putSingleBookAPI(id, {
-              title: title.trim(),
-              author: author.trim(),
-              genre: genre.toLowerCase().trim(),
-              release_date: date.trim(),
-              description: description.trim(),
-              image_url: link.replace(/\s/g, ""),
-            });
+            response = await putSingleBookAPI(id, objValues);
           } else if (requestChoice === "add") {
-            response = await postSingleBookAPI({
-              title,
-              author,
-              genre,
-              release_date: date,
-              description,
-              image_url: link,
-            });
+            response = await postSingleBookAPI(objValues);
           }
           if (response) {
             const getResponse = await getBooksAPI();
@@ -202,6 +196,7 @@ function AddEditForm({
           label="Opis"
           placeholder={description}
           color="secondary"
+          size="medium"
           className="submit-form__input"
           onChange={formik.handleChange}
           value={formik.values.description}

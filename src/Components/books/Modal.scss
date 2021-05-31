@@ -51,10 +51,10 @@
 
     .MuiInput-underline {
       &:before {
-        border-bottom: 1px solid lighten($hover-red-color, 10%);
+        border-bottom: 1px solid lighten($favourite-button-color, 10%);
       }
       &:after {
-        color: darken($hover-red-color, 20%);
+        border-bottom: darken($favourite-button-color, 20%);
       }
     }
     &__button {

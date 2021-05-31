@@ -97,25 +97,34 @@ function ElementDetails() {
       </Link>
       {!loading ? (
         <>
-          {!detailsErrors.get ? (
-            <>
-              <section className="informations">
-                <h1>
-                  {title} - {genre}
-                </h1>
-                <h3>Autor: {author}</h3>
-                <h3>
-                  Pierwsze wydanie: {release_date && release_date.substr(0, 10)}
-                </h3>
-                <h3>Oddaj swój głos!</h3>
-                <Rating
-                  name={title + id}
-                  value={rate}
-                  precision={1}
-                  onChange={(e) => addRating(id, e.target.value)}
-                  disabled={rateDisabled}
+          <section className="informations">
+            {!detailsErrors.get ? (
+              <>
+                <img
+                  src={image_url}
+                  alt={title}
+                  className="informations__image"
                 />
-                {ratingResponse && <h2>{ratingResponse}</h2>}
+                <div className="informations__container">
+                  <h1 className="informations__title">{title}</h1>
+                  <h2 className="informations__genre">Gatunek: {genre}</h2>
+                  <h3 className="informations__author">Autor: {author}</h3>
+                  <h3 className="informations__date">
+                    Pierwsze wydanie:{" "}
+                    {release_date && release_date.substr(0, 10)}
+                  </h3>
+                  <h3 className="informations__vote">Oddaj swój głos!</h3>
+
+                  <Rating
+                    name={title + id}
+                    value={rate}
+                    precision={1}
+                    onChange={(e) => addRating(id, e.target.value)}
+                    disabled={rateDisabled}
+                  />
+                  {ratingResponse && <h2>{ratingResponse}</h2>}
+                </div>
+
                 <div className="informations__buttons">
                   {bookValues.title && (
                     <AddEditForm
@@ -132,26 +141,21 @@ function ElementDetails() {
                     Usuń książkę
                   </Button>
                 </div>
-                <img
-                  src={image_url}
-                  alt={title}
-                  className="informations__image"
-                />
-              </section>
-              <section className="description">
-                <h2 className="description__title">Opis książki</h2>
-                <p className="description__text">{description}</p>
-              </section>
-            </>
-          ) : (
-            <div className="description__alert">
-              <Alert severity="error">Nie udało się wczytać książki!</Alert>
-            </div>
-          )}
+              </>
+            ) : (
+              <div className="informations__alert description__alert">
+                <Alert severity="error">Nie udało się wczytać książki!</Alert>
+              </div>
+            )}
+          </section>
+          <section className="description">
+            <h2 className="description__title">Opis książki</h2>
+            <p className="description__text">{description}</p>
+          </section>
         </>
       ) : (
         <div className="description__alert">
-          <Alert severity="info">
+          <Alert severity="info" className="informations__alert">
             Ładowanie informacji o książce.. <CircularProgress size="1.25em" />
           </Alert>
         </div>

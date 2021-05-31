@@ -2,7 +2,6 @@ import { TextField } from "@material-ui/core";
 import { Alert, Autocomplete, Pagination } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-import SearchIcon from "@material-ui/icons/Search";
 
 import Element from "./Element";
 import "./Elementlist.scss";
