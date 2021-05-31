@@ -65,3 +65,9 @@ $very-small-screen-res: 375px;
   -webkit-box-shadow: 0px 4px 6px 1px rgb(23 23 23 / 75%);
   -moz-box-shadow: 0px 4px 6px 1px rgb(23 23 23 / 75%);
 }
+
+@mixin shadow-modal {
+  box-shadow: 0px 0px 6px 3px rgb(0 0 0 / 72%);
+  -webkit-box-shadow: 0px 0px 6px 3px rgb(0 0 0 / 72%);
+  -moz-box-shadow: 0px 0px 6px 3px rgb(0 0 0 / 72%);
+}

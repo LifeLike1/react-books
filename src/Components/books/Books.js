@@ -31,7 +31,7 @@ function Books() {
     selectedFilters.length === 0
       ? setAllBooks(nonChangeableBooks)
       : setAllBooks(filtered);
-  }, [selectedFilters, nonChangeableBooks]);
+  }, [selectedFilters, nonChangeableBooks, loadingErrors]);
 
   useEffect(() => {
     setLoading(true);

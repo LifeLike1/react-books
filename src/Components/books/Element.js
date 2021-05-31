@@ -5,18 +5,18 @@ import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 
 function Element({
   elementObj,
-  favouriteBooksList,
-  setFavouriteBooksList,
+  favouriteBooks,
+  setFavouriteBooks,
   deleteBookList,
   setDeleteBookList,
 }) {
   const handleFavouriteSelect = (selectObj, selectBool) => {
     selectBool
-      ? setFavouriteBooksList([...favouriteBooksList, selectObj])
-      : setFavouriteBooksList(
-          favouriteBooksList.filter((obj) => obj.id !== selectObj.id)
+      ? setFavouriteBooks([...favouriteBooks, selectObj])
+      : setFavouriteBooks(
+          favouriteBooks.filter((obj) => obj.id !== selectObj.id)
         );
-    console.log(favouriteBooksList);
+    console.log(favouriteBooks);
   };
   const handleDeleteSelect = (id, selectBool) => {
     selectBool

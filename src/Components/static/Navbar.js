@@ -13,7 +13,7 @@ function Navbar() {
           <Link to="/books" className="navbar__item">
             Books
           </Link>
-          <Link to="/books" className="navbar__item">
+          <Link to="/favourites" className="navbar__item">
             Favourite
           </Link>
         </ul>

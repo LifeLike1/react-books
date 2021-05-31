@@ -1,9 +1,14 @@
 @import "../static/Config.scss";
 .modal {
   @include flex-center-column;
+  @include shadow-modal;
   position: absolute;
   top: 50%;
   left: 50%;
+  padding: 20px;
+  background-color: lighten($background-card-color, 10%);
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
   @media (max-width: $small-screen-res - 1) {
     width: 55%;
   }
@@ -13,10 +18,7 @@
   @media (min-width: $medium-screen-res) {
     width: 20%;
   }
-  padding: 20px;
-  transform: translate(-50%, -50%);
-  background-color: lighten($background-card-color, 10%);
-  border: 2px solid #000;
+
   &__success {
     color: $success-color;
   }
