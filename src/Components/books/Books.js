@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import Elementlist from "./Elementlist";
 import Sidebar from "./Sidebar";
@@ -6,12 +6,14 @@ import { getBooksAPI } from "../static/requests";
 import "./Books.scss";
 import { Alert } from "@material-ui/lab";
 import { CircularProgress } from "@material-ui/core";
+import { FavouriteBookContext } from "../context/StateContext";
 
 function Books() {
   const booksPerPage = 3;
   const [allBooks, setAllBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [nonChangeableBooks, setNonChangeableBooks] = useState([]);
+  const [favouriteBooks, setFavouriteBooks] = useContext(FavouriteBookContext);
   const [deleteBookList, setDeleteBookList] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -49,6 +51,7 @@ function Books() {
         setLoadingErrors({ ...loadingErrors, allBooks: true });
       }
       setLoading(false);
+      setFavouriteBooks([]);
     };
     setTimeout(() => fetchBooks(), 1000);
   }, []);
@@ -86,6 +89,8 @@ function Books() {
             loadingErrors={loadingErrors}
             deleteBookList={deleteBookList}
             setDeleteBookList={setDeleteBookList}
+            favouriteBooks={favouriteBooks}
+            setFavouriteBooks={setFavouriteBooks}
           />
         </>
       ) : (

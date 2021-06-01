@@ -1,11 +1,9 @@
 import { TextField } from "@material-ui/core";
 import { Alert, Autocomplete, Pagination } from "@material-ui/lab";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
-
 import Element from "./Element";
 import "./Elementlist.scss";
-import { FavouriteBookContext } from "../context/StateContext";
 
 function Elementlist({
   allBooks,
@@ -21,9 +19,9 @@ function Elementlist({
   loadingErrors,
   deleteBookList,
   setDeleteBookList,
+  favouriteBooks,
+  setFavouriteBooks,
 }) {
-  const [favouriteBooks, setFavouriteBooks] = useContext(FavouriteBookContext);
-
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
     setIndexes({

@@ -26,6 +26,10 @@ $medium-screen-res: 1366px;
 $small-screen-res: 720px;
 $very-small-screen-res: 375px;
 
+// size
+
+$navbar-height: 60px;
+
 // mixins
 
 @mixin sidebar-card {
