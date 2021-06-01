@@ -2,10 +2,11 @@ import { useContext, useState } from "react";
 import { FavouriteBookContext } from "../context/StateContext";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import "./FavouriteList.scss";
+import { Alert } from "@material-ui/lab";
 
 function FavouriteList() {
   const [favouriteBooks] = useContext(FavouriteBookContext);
-  const [booksToShow, setBooksToShow] = useState([]);
+  const [booksToShow, setBooksToShow] = useState(favouriteBooks);
   const favouriteBooksWithCategories = favouriteBooks.reduce((acc, curr) => {
     return {
       ...acc,
@@ -19,40 +20,50 @@ function FavouriteList() {
   };
   return (
     <main className="favourite">
-      <section className="fav-container">
-        <aside className="fav-aside">
-          <h2 className="fav-aside__title">
-            <FavoriteIcon />
-            Ulubione gatunki
-          </h2>
-          <div className="fav-aside__categories">
-            {uniqueCategories.map((category, index) => (
+      {favouriteBooks.length > 1 ? (
+        <section className="fav-container">
+          <aside className="fav-aside">
+            <h2 className="fav-aside__title">
+              <FavoriteIcon />
+              Wybierz ulubione
+            </h2>
+            <div className="fav-aside__categories">
               <div
                 className="fav-aside__category"
-                key={index}
-                onClick={(e) => handleCategorySelect(e.target.innerText)}
+                onClick={() => setBooksToShow(favouriteBooks)}
               >
-                {category}
+                Wszystkie
               </div>
-            ))}
-          </div>
-        </aside>
-        <div className="cont">
-          <div className="fav-images">
-            {booksToShow &&
-              booksToShow.map((book, index) => (
-                <div key={index}>
-                  <div className="fav-images__image-container">
+              {uniqueCategories.map((category, index) => (
+                <div
+                  className="fav-aside__category"
+                  key={index}
+                  onClick={(e) => handleCategorySelect(e.target.innerText)}
+                >
+                  {category}
+                </div>
+              ))}
+            </div>
+          </aside>
+          <div className="fav-image-cont">
+            <div className="fav-images">
+              {booksToShow &&
+                booksToShow.map((book, index) => (
+                  <div className="fav-images__image-container" key={index}>
                     <img
                       className="fav-images__image"
                       src={book.image_url}
                     ></img>
                   </div>
-                </div>
-              ))}
+                ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <Alert severity="warning" className="favourite__alert">
+          Wybierz ulubione książki
+        </Alert>
+      )}
     </main>
   );
 }
