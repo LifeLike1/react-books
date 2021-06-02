@@ -51,7 +51,6 @@ function Books() {
         setLoadingErrors({ ...loadingErrors, allBooks: true });
       }
       setLoading(false);
-      setFavouriteBooks([]);
     };
     setTimeout(() => fetchBooks(), 1000);
   }, []);

@@ -16,13 +16,11 @@ function Element({
       : setFavouriteBooks(
           favouriteBooks.filter((obj) => obj.id !== selectObj.id)
         );
-    console.log(favouriteBooks);
   };
   const handleDeleteSelect = (id, selectBool) => {
     selectBool
       ? setDeleteBookList([...deleteBookList, id])
       : setDeleteBookList(deleteBookList.filter((book) => book !== id));
-    console.log(deleteBookList);
   };
   const { id, title, author, release_date, image_url, rating } = elementObj;
   return (
@@ -71,6 +69,8 @@ function Element({
           control={
             <Checkbox
               name="Ulubione"
+              // check if this book is in favouriteBookList
+              checked={favouriteBooks.some((book) => book.id === id)}
               className="element__checkbox"
               onChange={(e) =>
                 handleFavouriteSelect(elementObj, e.target.checked)
@@ -84,6 +84,7 @@ function Element({
           control={
             <Checkbox
               name="Usuń"
+              checked={deleteBookList.includes(id)}
               className="element__checkbox element__checkbox--remove"
               onChange={(e) => handleDeleteSelect(id, e.target.checked)}
             />

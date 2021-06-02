@@ -11,7 +11,7 @@ const Functionalities = ({
   return (
     <div className="sidebar__add-book">
       <h3 className="sidebar__inside-title">
-        <SupervisorAccountIcon />
+        <SupervisorAccountIcon className="sidebar__icon" />
         Funkcje Admina
       </h3>
       <AddEditForm

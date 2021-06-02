@@ -109,6 +109,7 @@ function Sidebar({
           <Filtersection
             nonChangeableBooks={nonChangeableBooks}
             handleSelectedFilter={handleSelectedFilter}
+            selectedFilters={selectedFilters}
           />
           <Sortoptions
             handleSortChange={handleSortChange}

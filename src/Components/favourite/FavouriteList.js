@@ -3,20 +3,22 @@ import { FavouriteBookContext } from "../context/StateContext";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import "./FavouriteList.scss";
 import { Alert } from "@material-ui/lab";
+import StarIcon from "@material-ui/icons/Star";
 
 function FavouriteList() {
   const [favouriteBooks] = useContext(FavouriteBookContext);
-  const [booksToShow, setBooksToShow] = useState(favouriteBooks);
+  const [booksToShow, setBooksToShow] = useState(
+    favouriteBooks.sort((a, b) => b.rating - a.rating)
+  );
   const favouriteBooksWithCategories = favouriteBooks.reduce((acc, curr) => {
     return {
       ...acc,
       [curr.genre]: acc[curr.genre] ? [...acc[curr.genre], curr] : [curr],
     };
   }, {});
-  const uniqueCategories = Object.keys(favouriteBooksWithCategories);
+  const uniqueCategories = Object.keys(favouriteBooksWithCategories).sort();
   const handleCategorySelect = (value) => {
     setBooksToShow(favouriteBooksWithCategories[value]);
-    console.log(favouriteBooksWithCategories[value]);
   };
   return (
     <main className="favourite">
@@ -54,6 +56,11 @@ function FavouriteList() {
                       className="fav-images__image"
                       src={book.image_url}
                     ></img>
+                    <h1>{book.author}</h1>
+                    <h2>
+                      {book.rating ? book.rating.toFixed(2) : 0}{" "}
+                      <StarIcon className="fav-images__star" />
+                    </h2>
                   </div>
                 ))}
             </div>

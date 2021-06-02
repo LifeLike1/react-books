@@ -11,7 +11,7 @@ function Sortoptions({ handleSortChange, sortedValue }) {
   return (
     <div className="sidebar__sort">
       <h3 className="sidebar__sub-title">
-        <SortIcon /> Posortuj według
+        <SortIcon className="sidebar__icon" /> Posortuj według
       </h3>
       <FormControl>
         <InputLabel htmlFor="group-books"></InputLabel>
