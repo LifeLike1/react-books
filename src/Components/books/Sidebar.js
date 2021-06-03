@@ -1,7 +1,7 @@
 import Filtersection from "./Filtersection";
 import "./Sidebar.scss";
 import Sortoptions from "./Sortoptions";
-import { deleteSingleBookAPI } from "../static/requests";
+import { deleteSingleBookAPI, getBooksAPI } from "../static/requests";
 import Functionalities from "./Functionalities";
 
 function Sidebar({
@@ -19,8 +19,8 @@ function Sidebar({
   setPageDisplay,
 }) {
   // Filter list func
-  const handleSelectedFilter = (filterName, filterBool) => {
-    filterBool
+  const handleSelectedFilter = (filterName, isFilterSelected) => {
+    isFilterSelected
       ? setSelectedFilters([...selectedFilters, filterName])
       : setSelectedFilters(
           selectedFilters.filter((filter) => filter !== filterName)
@@ -28,19 +28,20 @@ function Sidebar({
     setSortedValue(0);
   };
 
-  const handleDeleteButton = () => {
-    for (const id of deleteBookList) {
-      const deleteData = async () => {
-        await deleteSingleBookAPI(id);
-      };
-      deleteData();
-    }
-    setAllBooks(
-      nonChangeableBooks.filter((book) => !deleteBookList.includes(book.id))
-    );
-    setNonChangeableBooks(
-      nonChangeableBooks.filter((book) => !deleteBookList.includes(book.id))
-    );
+  const handleDeleteButton = async () => {
+    const deleteData = async () => {
+      const deletedBooks = await Promise.all(
+        deleteBookList.map((book) => deleteSingleBookAPI(book))
+      );
+      console.log(deletedBooks);
+    };
+    await deleteData();
+    const setBooks = async () => {
+      const response = await getBooksAPI();
+      setNonChangeableBooks(response);
+      setAllBooks(response);
+    };
+    await setBooks();
     setDeleteBookList([]);
     setSortedValue(0);
     setSelectedFilters([]);
@@ -118,6 +119,7 @@ function Sidebar({
           <Functionalities
             setAllBooks={setAllBooks}
             setNonChangeableBooks={setNonChangeableBooks}
+            nonChangeableBooks={nonChangeableBooks}
             handleDeleteButton={handleDeleteButton}
             deleteBookList={deleteBookList}
           />

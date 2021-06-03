@@ -5,6 +5,7 @@ import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 
 function Element({
   elementObj,
+  nonChangeableBooks,
   favouriteBooks,
   setFavouriteBooks,
   deleteBookList,
@@ -27,14 +28,26 @@ function Element({
   return (
     <div className="element">
       <div className="element__image-container">
-        <Link to={`/${id}`} className="element__link">
+        <Link
+          to={{
+            pathname: `/${id}`,
+            state: { nonChangeableBooks: nonChangeableBooks },
+          }}
+          className="element__link"
+        >
           <img src={image_url} alt={title} className="element__image" />
         </Link>
       </div>
       <div className="element__description">
         <div className="element__wrap">
           <div className="element__title">
-            <Link to={`/${id}`} className="element__link">
+            <Link
+              to={{
+                pathname: `/${id}`,
+                state: { nonChangeableBooks: nonChangeableBooks },
+              }}
+              className="element__link"
+            >
               {title}
             </Link>
           </div>
@@ -58,6 +71,7 @@ function Element({
         <Link
           to={{
             pathname: `/${id}`,
+            state: { nonChangeableBooks: nonChangeableBooks },
           }}
           className="element__link"
         >

@@ -1,0 +1,47 @@
+@import "../static/Config.scss";
+
+.fav-aside {
+  @include flex-center-column;
+  @include scroll-bar;
+
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  justify-content: center;
+  height: 100%;
+  background-color: #1f2935;
+  @media (max-width: $very-small-screen-res - 1) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    padding-bottom: 15px;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+  &__categories {
+    @include shadow-card;
+    width: 90%;
+    height: 80%;
+    overflow: auto;
+    background-color: #25405b;
+    border-radius: 5px;
+  }
+  &__category {
+    @include flex-center-column;
+    border-bottom: 1px dashed $border-color;
+    &:last-child {
+      border-bottom: none;
+    }
+    cursor: pointer;
+    justify-content: center;
+    width: 100%;
+    height: 15%;
+    &:hover {
+      background-color: #e09f20;
+      transition: 0.4s;
+    }
+  }
+  &__icon {
+    color: #ff3d57;
+  }
+}

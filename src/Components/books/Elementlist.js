@@ -65,62 +65,61 @@ function Elementlist({
   ]);
 
   return (
-    <>
-      <section className="elements">
-        <div className="elements__container">
-          {!loadingErrors.allBooks && (
-            <>
-              <h1 className="elements__title">
-                <LibraryBooksIcon /> Lista książek
-              </h1>
-              <div className="elements__search-main">
-                <Autocomplete
-                  id="elements__auto-complete"
-                  options={allBooks.map((book) => book.title)}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Szukaj książki.."
-                      margin="normal"
-                      variant="outlined"
-                      onChange={(e) => handleAutosearchChange(e.target.value)}
-                    />
-                  )}
-                  onChange={(e, selectedElement) =>
-                    handleSearchChange(selectedElement)
-                  }
-                  value={null}
-                />
-              </div>
-            </>
-          )}
-        </div>
-        {loadingErrors.allBooks ? (
-          <Alert severity="error">Nie udało się wczytać książek!</Alert>
-        ) : (
-          allBooks
-            .slice(indexes.from, indexes.to)
-            .map((book) => (
-              <Element
-                elementObj={book}
-                key={book.id}
-                favouriteBooks={favouriteBooks}
-                setFavouriteBooks={setFavouriteBooks}
-                deleteBookList={deleteBookList}
-                setDeleteBookList={setDeleteBookList}
+    <section className="elements">
+      <div className="elements__container">
+        {!loadingErrors.allBooks && (
+          <>
+            <h1 className="elements__title">
+              <LibraryBooksIcon /> Lista książek
+            </h1>
+            <div className="elements__search-main">
+              <Autocomplete
+                id="elements__auto-complete"
+                options={allBooks.map((book) => book.title)}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Szukaj książki.."
+                    margin="normal"
+                    variant="outlined"
+                    onChange={(e) => handleAutosearchChange(e.target.value)}
+                  />
+                )}
+                onChange={(e, selectedElement) =>
+                  handleSearchChange(selectedElement)
+                }
+                value={null}
               />
-            ))
+            </div>
+          </>
         )}
+      </div>
+      {loadingErrors.allBooks ? (
+        <Alert severity="error">Nie udało się wczytać książek!</Alert>
+      ) : (
+        allBooks
+          .slice(indexes.from, indexes.to)
+          .map((book) => (
+            <Element
+              elementObj={book}
+              key={book.id}
+              nonChangeableBooks={nonChangeableBooks}
+              favouriteBooks={favouriteBooks}
+              setFavouriteBooks={setFavouriteBooks}
+              deleteBookList={deleteBookList}
+              setDeleteBookList={setDeleteBookList}
+            />
+          ))
+      )}
 
-        <Pagination
-          count={Math.ceil(allBooks.length / booksPerPage)}
-          color="secondary"
-          page={pageDisplay}
-          className="elements__pagination"
-          onChange={(e, page) => handlePaginationChange(page)}
-        />
-      </section>
-    </>
+      <Pagination
+        count={Math.ceil(allBooks.length / booksPerPage)}
+        color="secondary"
+        page={pageDisplay}
+        className="elements__pagination"
+        onChange={(e, page) => handlePaginationChange(page)}
+      />
+    </section>
   );
 }
 export default Elementlist;

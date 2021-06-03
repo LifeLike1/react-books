@@ -1,7 +1,7 @@
 import { Button, CircularProgress, SvgIcon } from "@material-ui/core";
 import { Alert, Rating } from "@material-ui/lab";
 import { useEffect, useState } from "react";
-import { useHistory, useParams, withRouter } from "react-router";
+import { useHistory, useLocation, useParams, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import {
   getSingleBookAPI,
@@ -13,6 +13,8 @@ import "./ElementDetails.scss";
 
 function ElementDetails() {
   const { id } = useParams();
+  const location = useLocation();
+  const { nonChangeableBooks } = location.state;
   const history = useHistory();
   const [bookValues, setBookValues] = useState({});
   const [detailsErrors, setDetailsErrors] = useState({
@@ -46,7 +48,7 @@ function ElementDetails() {
       }
       setLoading(false);
     };
-    setTimeout(() => fetchData(), 1000);
+    fetchData();
   }, [ratingResponse, id, rateDisabled]);
 
   const addRating = (id, rating) => {
@@ -75,7 +77,7 @@ function ElementDetails() {
     const deleteData = async () => {
       const response = await deleteSingleBookAPI(id);
       if (response) {
-        history.push("/books");
+        history.push("/");
         setDetailsErrors({ ...detailsErrors, delete: false });
         setLoading(false);
       } else {
@@ -89,7 +91,7 @@ function ElementDetails() {
   const [rate, setRate] = useState(rating);
   return (
     <main className="details">
-      <Link to="/books" className="details__back">
+      <Link to="/" className="details__back">
         <SvgIcon>
           <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
         </SvgIcon>
@@ -130,6 +132,7 @@ function ElementDetails() {
                     <AddEditForm
                       elementObj={{ ...bookValues, id }}
                       setBookValues={setBookValues}
+                      nonChangeableBooks={nonChangeableBooks}
                       buttonTitle="Edytuj książkę"
                     />
                   )}

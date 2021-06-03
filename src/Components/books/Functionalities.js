@@ -5,6 +5,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 const Functionalities = ({
   setAllBooks,
   setNonChangeableBooks,
+  nonChangeableBooks,
   handleDeleteButton,
   deleteBookList,
 }) => {
@@ -16,6 +17,7 @@ const Functionalities = ({
       </h3>
       <AddEditForm
         setAllBooks={setAllBooks}
+        nonChangeableBooks={nonChangeableBooks}
         setNonChangeableBooks={setNonChangeableBooks}
         buttonTitle="Dodaj książkę"
       />

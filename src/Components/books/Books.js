@@ -6,7 +6,7 @@ import { getBooksAPI } from "../static/requests";
 import "./Books.scss";
 import { Alert } from "@material-ui/lab";
 import { CircularProgress } from "@material-ui/core";
-import { FavouriteBookContext } from "../context/StateContext";
+import { FavouriteBookContext } from "../context/FavouriteBookContextProvider";
 
 function Books() {
   const booksPerPage = 3;
@@ -52,7 +52,7 @@ function Books() {
       }
       setLoading(false);
     };
-    setTimeout(() => fetchBooks(), 1000);
+    fetchBooks();
   }, []);
 
   return (

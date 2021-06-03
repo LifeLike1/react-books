@@ -10,9 +10,6 @@ function Navbar() {
           <Link to="/" className="navbar__item">
             Home
           </Link>
-          <Link to="/books" className="navbar__item">
-            Books
-          </Link>
           <Link to="/favourites" className="navbar__item">
             Favourite
           </Link>

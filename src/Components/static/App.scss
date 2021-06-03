@@ -1,6 +1,7 @@
 @import "Config.scss";
 body {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
   width: 100%;
   color: $primary-color;
@@ -15,7 +16,4 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-#root {
-  display: grid;
 }

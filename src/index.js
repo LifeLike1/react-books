@@ -3,14 +3,14 @@ import ReactDOM from "react-dom";
 import App from "./Components/static/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import StateContext from "./Components/context/StateContext";
+import FavouriteBookContextProvider from "./Components/context/FavouriteBookContextProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <StateContext>
+      <FavouriteBookContextProvider>
         <App />
-      </StateContext>
+      </FavouriteBookContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
