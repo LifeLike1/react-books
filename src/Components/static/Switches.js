@@ -7,10 +7,10 @@ import ElementDetails from "../books/ElementDetails";
 function Switches() {
   return (
     <Switch>
-      <Route path="/" component={Home} exact />
+      <Route path="/" component={Books} exact />
       <Route path="/books" component={Books} />
       <Route path="/favourites" component={FavouriteList} />
-      <Route path="/book/:id" component={ElementDetails} />
+      <Route path="/:id" component={ElementDetails} />
     </Switch>
   );
 }

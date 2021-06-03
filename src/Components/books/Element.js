@@ -21,19 +21,20 @@ function Element({
     selectBool
       ? setDeleteBookList([...deleteBookList, id])
       : setDeleteBookList(deleteBookList.filter((book) => book !== id));
+    console.log(deleteBookList);
   };
   const { id, title, author, release_date, image_url, rating } = elementObj;
   return (
     <div className="element">
       <div className="element__image-container">
-        <Link to={`/book/${id}`} className="element__link">
+        <Link to={`/${id}`} className="element__link">
           <img src={image_url} alt={title} className="element__image" />
         </Link>
       </div>
       <div className="element__description">
         <div className="element__wrap">
           <div className="element__title">
-            <Link to={`/book/${id}`} className="element__link">
+            <Link to={`/${id}`} className="element__link">
               {title}
             </Link>
           </div>
@@ -56,7 +57,7 @@ function Element({
       <div className="element__functions">
         <Link
           to={{
-            pathname: `/book/${id}`,
+            pathname: `/${id}`,
           }}
           className="element__link"
         >

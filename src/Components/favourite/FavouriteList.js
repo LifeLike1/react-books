@@ -26,7 +26,7 @@ function FavouriteList() {
         <section className="fav-container">
           <aside className="fav-aside">
             <h2 className="fav-aside__title">
-              <FavoriteIcon />
+              <FavoriteIcon className="fav-aside__icon" />
               Wybierz ulubione
             </h2>
             <div className="fav-aside__categories">

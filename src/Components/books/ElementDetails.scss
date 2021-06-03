@@ -1,13 +1,19 @@
 @import "../static/Config.scss";
 .details {
+  @include shadow-card;
+  @media (min-width: $medium-screen-res) {
+    height: 70vh;
+  }
+  @media (min-width: $small-screen-res) and (max-width: $medium-screen-res - 1) {
+    grid-template-columns: 50% 50%;
+  }
+  @media (max-width: $small-screen-res - 1) {
+    grid-template-columns: 100%;
+  }
   max-width: 1200px;
-  height: 70vh;
   margin: 0 auto;
   background-color: $background-card-color;
   border-radius: 10px;
-  @media (max-width: $small-screen-res) {
-    grid-template-columns: 100%;
-  }
   grid-template-columns: 60% 40%;
   width: 90%;
   display: grid;
@@ -26,8 +32,17 @@
   }
   .informations {
     display: grid;
-    grid-template-columns: 55% 45%;
-    grid-template-rows: 75% 25%;
+
+    @media (min-width: $medium-screen-res) {
+      grid-template-columns: 55% 45%;
+      grid-template-rows: 75% 25%;
+    }
+    @media (max-width: $small-screen-res - 1) {
+      grid-template-columns: 100%;
+    }
+    @media (min-width: $small-screen-res) and (max-width: $medium-screen-res - 1) {
+      grid-template-columns: 100%;
+    }
     margin-top: 5vh;
     padding: 15px;
     &__container {
@@ -38,6 +53,14 @@
     }
     &__image {
       width: 75%;
+      @media (max-width: $small-screen-res - 1) {
+        margin: 0 auto;
+        width: 75%;
+      }
+      @media (min-width: $small-screen-res) and (max-width: $medium-screen-res - 1) {
+        margin: 0 auto;
+        width: 45%;
+      }
     }
     &__date {
       padding-bottom: 10px;
@@ -45,6 +68,11 @@
     &__buttons {
       display: flex;
       align-items: center;
+      justify-content: center;
+      @media (min-width: $medium-screen-res) {
+        justify-content: flex-start;
+      }
+      gap: 1vw;
     }
     .MuiRating-iconEmpty {
       color: lighten($star-background-color, 25%);
@@ -68,6 +96,12 @@
       letter-spacing: 0.3rem;
     }
     &__text {
+      @media (max-width: $small-screen-res - 1) {
+        max-height: 300px;
+      }
+      @media (max-width: $very-small-screen-res - 1) {
+        max-height: 200px;
+      }
       letter-spacing: 0.15rem;
       text-align: center;
       max-height: 500px;

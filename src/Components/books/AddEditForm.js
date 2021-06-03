@@ -32,6 +32,36 @@ function AddEditForm({
     success: true,
   });
   const [errors, setErrors] = useState([]);
+  const validate = (values) => {
+    const errors = {};
+    if (!values.title) {
+      errors.title = "Tytuł nie może być pusty";
+    } else if (typeof values.title !== "string") {
+      errors.firstName = "Must be 15 characters or less";
+    }
+
+    if (!values.genre) {
+      errors.genre = "Musisz podać gatunek";
+    } else if (typeof values.genre !== "string") {
+      errors.genre = "Gatunek musi być wyrazem";
+    } else if (values.genre.length > 50) {
+      error.genre = "Gatunek ma maksymalnie 50 znaków";
+    }
+
+    if (!values.date) {
+      errors.date = "Musisz podać datę";
+    } else if (Number.isNaN(Date.parse(values.date))) {
+      errors.date = "Musisz podać prawidłową datę";
+    }
+
+    if (!values.description) {
+      errors.description = "Musisz podać opis";
+    } else if (typeof values.description !== "string") {
+      errors.date = "Opis musi być wyrazem";
+    }
+
+    return errors;
+  };
   const formik = useFormik({
     initialValues: {
       title: title,
