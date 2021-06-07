@@ -1,6 +1,6 @@
 import { Button, CircularProgress, SvgIcon } from "@material-ui/core";
 import { Alert, Rating } from "@material-ui/lab";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useHistory, useLocation, useParams, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import {
@@ -16,6 +16,7 @@ function ElementDetails() {
   const location = useLocation();
   const { nonChangeableBooks } = location.state;
   const history = useHistory();
+  const detailsErrorsData = useRef(false);
   const [bookValues, setBookValues] = useState({});
   const [detailsErrors, setDetailsErrors] = useState({
     get: false,
@@ -36,20 +37,23 @@ function ElementDetails() {
   } = bookValues;
 
   useEffect(() => {
-    setLoading(true);
-    const fetchData = async () => {
-      const response = await getSingleBookAPI(id);
-      if (response) {
-        setBookValues(response);
-        setRate(response.rating);
-        setDetailsErrors({ ...detailsErrors, get: false });
-      } else {
-        setDetailsErrors({ ...detailsErrors, get: true });
-      }
-      setLoading(false);
-    };
-    fetchData();
-  }, [ratingResponse, id, rateDisabled]);
+    if (!detailsErrorsData.current) {
+      setLoading(true);
+      const fetchData = async () => {
+        const response = await getSingleBookAPI(id);
+        if (response) {
+          setBookValues(response);
+          setRate(response.rating);
+          setDetailsErrors({ ...detailsErrors, get: false });
+        } else {
+          setDetailsErrors({ ...detailsErrors, get: true });
+        }
+        setLoading(false);
+      };
+      fetchData();
+      detailsErrorsData.current = true;
+    }
+  }, [ratingResponse, id, rateDisabled, detailsErrors]);
 
   const addRating = (id, rating) => {
     const fetchData = async () => {
@@ -87,7 +91,6 @@ function ElementDetails() {
     };
     deleteData();
   };
-
   const [rate, setRate] = useState(rating);
   return (
     <main className="details">

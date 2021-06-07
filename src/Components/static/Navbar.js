@@ -5,13 +5,13 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        <span className="navbar__title">Logo</span>
+        <span className="navbar__title">Książki</span>
         <ul className="navbar__list">
           <Link to="/" className="navbar__item">
-            Home
+            Strona Główna
           </Link>
           <Link to="/favourites" className="navbar__item">
-            Favourite
+            Ulubione
           </Link>
         </ul>
       </div>

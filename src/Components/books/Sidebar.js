@@ -105,7 +105,7 @@ function Sidebar({
 
   return (
     <aside className="sidebar">
-      {!loadingErrors.allBooks && (
+      {!loadingErrors && (
         <>
           <Filtersection
             nonChangeableBooks={nonChangeableBooks}

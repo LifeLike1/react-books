@@ -21,9 +21,7 @@ function Books() {
     from: 0,
     to: booksPerPage,
   });
-  const [loadingErrors, setLoadingErrors] = useState({
-    allBooks: false,
-  });
+  const [loadingErrors, setLoadingErrors] = useState(false);
   const [sortedValue, setSortedValue] = useState(0);
 
   useEffect(() => {
@@ -42,13 +40,9 @@ function Books() {
       if (response) {
         setAllBooks(response);
         setNonChangeableBooks(response);
-        setLoadingErrors({
-          ...loadingErrors,
-          allBooks: false,
-          nonChangeableBooks: false,
-        });
+        setLoadingErrors(false);
       } else {
-        setLoadingErrors({ ...loadingErrors, allBooks: true });
+        setLoadingErrors(false);
       }
       setLoading(false);
     };

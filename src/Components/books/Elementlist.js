@@ -67,7 +67,7 @@ function Elementlist({
   return (
     <section className="elements">
       <div className="elements__container">
-        {!loadingErrors.allBooks && (
+        {!loadingErrors && (
           <>
             <h1 className="elements__title">
               <LibraryBooksIcon /> Lista książek
@@ -94,7 +94,7 @@ function Elementlist({
           </>
         )}
       </div>
-      {loadingErrors.allBooks ? (
+      {loadingErrors ? (
         <Alert severity="error">Nie udało się wczytać książek!</Alert>
       ) : (
         allBooks

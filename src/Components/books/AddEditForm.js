@@ -43,7 +43,7 @@ function AddEditForm({
       else if (typeof values.title !== "string")
         errors.title = "Tytuł musi być wyrazem";
 
-    if (!values.author) errors.author = "Tytuł nie może być pusty";
+    if (!values.author) errors.author = "Musisz podać autora";
     else if (typeof values.author !== "string")
       errors.author = "Autor musi być wyrazem";
 
@@ -144,14 +144,6 @@ function AddEditForm({
   const handleClose = () => {
     setOpen(false);
     setResponse({ response: null, success: true });
-    if (requestChoice === "add") {
-      formik.values.title = "";
-      formik.values.author = "";
-      formik.values.genre = "";
-      formik.values.release_date = "";
-      formik.values.description = "";
-      formik.values.image_url = "";
-    }
   };
 
   const inputs = [
@@ -196,9 +188,11 @@ function AddEditForm({
         {inputs.map((input) => (
           <TextField
             key={input.id}
+            type={input.id === "release_date" ? "date" : "text"}
             id={input.id}
             name={input.id}
-            label={input.label}
+            defaultValue={input.id === "release_date" ? Date.now() : ""}
+            label={input.id === "release_date" ? "" : input.label}
             placeholder={input.placeholder}
             color="secondary"
             error={formik.touched[input.id] && Boolean(formik.errors[input.id])}
