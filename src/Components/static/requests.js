@@ -61,3 +61,5 @@ export const deleteSingleBookAPI = async (id) => {
     return undefined;
   }
 };
+
+export const BASE_IMG_URL = "https://mrb.imgix.net/assets/default-book.png";

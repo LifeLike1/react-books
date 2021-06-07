@@ -7,6 +7,7 @@ import {
   getSingleBookAPI,
   postSingleBookRateAPI,
   deleteSingleBookAPI,
+  BASE_IMG_URL,
 } from "../static/requests";
 import AddEditForm from "./AddEditForm";
 import "./ElementDetails.scss";
@@ -107,6 +108,7 @@ function ElementDetails() {
               <>
                 <img
                   src={image_url}
+                  onError={(e) => (e.target.src = BASE_IMG_URL)}
                   alt={title}
                   className="informations__image"
                 />

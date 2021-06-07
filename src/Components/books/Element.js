@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 import "./Element.scss";
 import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
+import { BASE_IMG_URL } from "../static/requests";
 
 function Element({
   elementObj,
@@ -30,11 +31,16 @@ function Element({
         <Link
           to={{
             pathname: `/${id}`,
-            state: { bookBase: bookBase },
+            state: { bookBase },
           }}
           className="element__link"
         >
-          <img src={image_url} alt={title} className="element__image" />
+          <img
+            src={image_url}
+            alt={title}
+            onError={(e) => (e.target.src = BASE_IMG_URL)}
+            className="element__image"
+          />
         </Link>
       </div>
       <div className="element__description">
@@ -43,7 +49,7 @@ function Element({
             <Link
               to={{
                 pathname: `/${id}`,
-                state: { bookBase: bookBase },
+                state: { bookBase },
               }}
               className="element__link"
             >
@@ -70,7 +76,7 @@ function Element({
         <Link
           to={{
             pathname: `/${id}`,
-            state: { bookBase: bookBase },
+            state: { bookBase },
           }}
           className="element__link"
         >
