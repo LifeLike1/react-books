@@ -5,7 +5,7 @@ import { Button, Checkbox, FormControlLabel } from "@material-ui/core";
 
 function Element({
   elementObj,
-  nonChangeableBooks,
+  bookBase,
   favouriteBooks,
   setFavouriteBooks,
   deleteBookList,
@@ -31,7 +31,7 @@ function Element({
         <Link
           to={{
             pathname: `/${id}`,
-            state: { nonChangeableBooks: nonChangeableBooks },
+            state: { bookBase: bookBase },
           }}
           className="element__link"
         >
@@ -44,7 +44,7 @@ function Element({
             <Link
               to={{
                 pathname: `/${id}`,
-                state: { nonChangeableBooks: nonChangeableBooks },
+                state: { bookBase: bookBase },
               }}
               className="element__link"
             >
@@ -71,7 +71,7 @@ function Element({
         <Link
           to={{
             pathname: `/${id}`,
-            state: { nonChangeableBooks: nonChangeableBooks },
+            state: { bookBase: bookBase },
           }}
           className="element__link"
         >

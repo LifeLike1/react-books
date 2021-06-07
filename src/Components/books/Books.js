@@ -10,9 +10,9 @@ import { FavouriteBookContext } from "../context/FavouriteBookContextProvider";
 
 function Books() {
   const booksPerPage = 3;
-  const [allBooks, setAllBooks] = useState([]);
+  const [booksToShow, setBooksToShow] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [nonChangeableBooks, setNonChangeableBooks] = useState([]);
+  const [bookBase, setBookBase] = useState([]);
   const [favouriteBooks, setFavouriteBooks] = useContext(FavouriteBookContext);
   const [deleteBookList, setDeleteBookList] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
@@ -25,8 +25,8 @@ function Books() {
   const [loadingErrors, setLoadingErrors] = useState(false);
   const [sortedValue, setSortedValue] = useState(0);
 
-  useEffect(() => {
-    const filtered = nonChangeableBooks.filter((book) => {
+  const filterGeneral = () => {
+    const filtered = bookBase.filter((book) => {
       // if two filters (author and genre) are selected
       if (selectedFilters.length && selectedAuthors.length) {
         return (
@@ -42,19 +42,24 @@ function Books() {
       if (!selectedFilters.length) {
         return selectedAuthors.includes(book.author);
       }
+      return false;
     });
     !selectedFilters.length && !selectedAuthors.length
-      ? setAllBooks(nonChangeableBooks)
-      : setAllBooks(filtered);
-  }, [selectedFilters, selectedAuthors, nonChangeableBooks, loadingErrors]);
+      ? setBooksToShow(bookBase)
+      : setBooksToShow(filtered);
+  };
+
+  useEffect(() => {
+    filterGeneral();
+  }, [selectedFilters, selectedAuthors, bookBase, loadingErrors]);
 
   useEffect(() => {
     setLoading(true);
     const fetchBooks = async () => {
       const response = await getBooksAPI();
       if (response) {
-        setAllBooks(response);
-        setNonChangeableBooks(response);
+        setBooksToShow(response);
+        setBookBase(response);
         setLoadingErrors(false);
       } else {
         setLoadingErrors(false);
@@ -67,10 +72,10 @@ function Books() {
   return (
     <main className="books-container">
       <Sidebar
-        nonChangeableBooks={nonChangeableBooks}
-        setNonChangeableBooks={setNonChangeableBooks}
-        allBooks={allBooks}
-        setAllBooks={setAllBooks}
+        bookBase={bookBase}
+        setBookBase={setBookBase}
+        booksToShow={booksToShow}
+        setBooksToShow={setBooksToShow}
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
         selectedAuthors={selectedAuthors}
@@ -85,10 +90,10 @@ function Books() {
       {!loading ? (
         <>
           <Elementlist
-            allBooks={allBooks}
-            setAllBooks={setAllBooks}
-            nonChangeableBooks={nonChangeableBooks}
-            setNonChangeableBooks={setNonChangeableBooks}
+            booksToShow={booksToShow}
+            setBooksToShow={setBooksToShow}
+            bookBase={bookBase}
+            setBookBase={setBookBase}
             selectedFilters={selectedFilters}
             pageDisplay={pageDisplay}
             setPageDisplay={setPageDisplay}
@@ -101,6 +106,7 @@ function Books() {
             setDeleteBookList={setDeleteBookList}
             favouriteBooks={favouriteBooks}
             setFavouriteBooks={setFavouriteBooks}
+            filterGeneral={filterGeneral}
           />
         </>
       ) : (

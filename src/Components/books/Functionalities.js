@@ -3,9 +3,9 @@ import AddEditForm from "./AddEditForm";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 
 const Functionalities = ({
-  setAllBooks,
-  setNonChangeableBooks,
-  nonChangeableBooks,
+  setBooksToShow,
+  setBookBase,
+  bookBase,
   handleDeleteButton,
   deleteBookList,
 }) => {
@@ -16,9 +16,9 @@ const Functionalities = ({
         Funkcje Admina
       </h3>
       <AddEditForm
-        setAllBooks={setAllBooks}
-        nonChangeableBooks={nonChangeableBooks}
-        setNonChangeableBooks={setNonChangeableBooks}
+        setBooksToShow={setBooksToShow}
+        bookBase={bookBase}
+        setBookBase={setBookBase}
         buttonTitle="Dodaj książkę"
       />
       {deleteBookList.length > 0 && (

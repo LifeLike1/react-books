@@ -1,13 +1,8 @@
 import { FormControlLabel, Switch } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 
-function Authorsection({
-  nonChangeableBooks,
-  setSelectedAuthors,
-  handleSelectedAuthor,
-  selectedAuthors,
-}) {
-  const bookAuthors = nonChangeableBooks.map((book) => book.author);
+function Authorsection({ bookBase, handleSelectedAuthor, selectedAuthors }) {
+  const bookAuthors = bookBase.map((book) => book.author);
   const uniqueAuthors = [...new Set(bookAuthors.sort())];
   return (
     <div className="sidebar__filter-container sidebar__filter-container--second">

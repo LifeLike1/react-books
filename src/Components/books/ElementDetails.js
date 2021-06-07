@@ -14,7 +14,7 @@ import "./ElementDetails.scss";
 function ElementDetails() {
   const { id } = useParams();
   const location = useLocation();
-  const { nonChangeableBooks } = location.state;
+  const { bookBase } = location.state;
   const history = useHistory();
   const detailsErrorsData = useRef(false);
   const [bookValues, setBookValues] = useState({});
@@ -135,7 +135,7 @@ function ElementDetails() {
                     <AddEditForm
                       elementObj={{ ...bookValues, id }}
                       setBookValues={setBookValues}
-                      nonChangeableBooks={nonChangeableBooks}
+                      bookBase={bookBase}
                       buttonTitle="Edytuj książkę"
                     />
                   )}

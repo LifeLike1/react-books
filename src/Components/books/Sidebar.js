@@ -6,10 +6,10 @@ import Functionalities from "./Functionalities";
 import Authorsection from "./Authorsection";
 
 function Sidebar({
-  nonChangeableBooks,
-  setNonChangeableBooks,
-  allBooks,
-  setAllBooks,
+  bookBase,
+  setBookBase,
+  booksToShow,
+  setBooksToShow,
   setSelectedFilters,
   selectedFilters,
   setSelectedAuthors,
@@ -20,6 +20,7 @@ function Sidebar({
   deleteBookList,
   setDeleteBookList,
   setPageDisplay,
+  filterGeneral,
 }) {
   // Filter list func
   const handleSelectedFilter = (filterName, isFilterSelected) => {
@@ -37,6 +38,7 @@ function Sidebar({
       : setSelectedAuthors(
           selectedAuthors.filter((author) => author !== authorName)
         );
+    setSortedValue(0);
   };
 
   const handleDeleteButton = async () => {
@@ -49,13 +51,14 @@ function Sidebar({
     await deleteData();
     const setBooks = async () => {
       const response = await getBooksAPI();
-      setNonChangeableBooks(response);
-      setAllBooks(response);
+      setBookBase(response);
+      setBooksToShow(response);
     };
     await setBooks();
     setDeleteBookList([]);
     setSortedValue(0);
     setSelectedFilters([]);
+    setSelectedAuthors([]);
     setPageDisplay(1);
   };
 
@@ -64,31 +67,31 @@ function Sidebar({
     setSortedValue(sortId);
     switch (sortId) {
       case 0:
-        setAllBooks([...allBooks].sort((a, b) => a.id - b.id));
+        setBooksToShow([...booksToShow].sort((a, b) => a.id - b.id));
         break;
       case 1:
-        setAllBooks([...allBooks].sort((a, b) => a.rating - b.rating));
+        setBooksToShow([...booksToShow].sort((a, b) => a.rating - b.rating));
         break;
       case 2:
-        setAllBooks([...allBooks].sort((a, b) => b.rating - a.rating));
+        setBooksToShow([...booksToShow].sort((a, b) => b.rating - a.rating));
         break;
       case 3:
-        setAllBooks(
-          [...allBooks].sort((a, b) =>
+        setBooksToShow(
+          [...booksToShow].sort((a, b) =>
             a.title > b.title ? 1 : b.title > a.title ? -1 : 0
           )
         );
         break;
       case 4:
-        setAllBooks(
-          [...allBooks].sort((a, b) =>
+        setBooksToShow(
+          [...booksToShow].sort((a, b) =>
             b.title > a.title ? 1 : a.title > b.title ? -1 : 0
           )
         );
         break;
       case 5:
-        setAllBooks(
-          [...allBooks].sort((a, b) =>
+        setBooksToShow(
+          [...booksToShow].sort((a, b) =>
             b.release_date > a.release_date
               ? 1
               : a.release_date > b.release_date
@@ -98,8 +101,8 @@ function Sidebar({
         );
         break;
       case 6:
-        setAllBooks(
-          [...allBooks].sort((a, b) =>
+        setBooksToShow(
+          [...booksToShow].sort((a, b) =>
             a.release_date > b.release_date
               ? 1
               : b.release_date > a.release_date
@@ -109,7 +112,7 @@ function Sidebar({
         );
         break;
       default:
-        setAllBooks([...allBooks].sort((a, b) => a.id - b.id));
+        setBooksToShow([...booksToShow].sort((a, b) => a.id - b.id));
         break;
     }
   };
@@ -119,13 +122,12 @@ function Sidebar({
       {!loadingErrors && (
         <>
           <Filtersection
-            nonChangeableBooks={nonChangeableBooks}
+            bookBase={bookBase}
             handleSelectedFilter={handleSelectedFilter}
             selectedFilters={selectedFilters}
           />
           <Authorsection
-            nonChangeableBooks={nonChangeableBooks}
-            setSelectedAuthors={setSelectedAuthors}
+            bookBase={bookBase}
             handleSelectedAuthor={handleSelectedAuthor}
             selectedAuthors={selectedAuthors}
           />
@@ -134,9 +136,9 @@ function Sidebar({
             sortedValue={sortedValue}
           />
           <Functionalities
-            setAllBooks={setAllBooks}
-            setNonChangeableBooks={setNonChangeableBooks}
-            nonChangeableBooks={nonChangeableBooks}
+            setBooksToShow={setBooksToShow}
+            setBookBase={setBookBase}
+            bookBase={bookBase}
             handleDeleteButton={handleDeleteButton}
             deleteBookList={deleteBookList}
           />

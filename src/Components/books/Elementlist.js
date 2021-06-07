@@ -6,9 +6,9 @@ import Element from "./Element";
 import "./Elementlist.scss";
 
 function Elementlist({
-  allBooks,
-  setAllBooks,
-  nonChangeableBooks,
+  booksToShow,
+  setBooksToShow,
+  bookBase,
   pageDisplay,
   setPageDisplay,
   selectedFilters,
@@ -21,6 +21,7 @@ function Elementlist({
   setDeleteBookList,
   favouriteBooks,
   setFavouriteBooks,
+  filterGeneral,
 }) {
   const handlePaginationChange = (page) => {
     const startIndex = page * booksPerPage - booksPerPage;
@@ -32,20 +33,15 @@ function Elementlist({
   };
 
   const handleSearchChange = (searchBook) => {
-    const books = allBooks.filter((book) => book.title === searchBook);
-    setAllBooks(books);
+    const books = booksToShow.filter((book) => book.title === searchBook);
+    setBooksToShow(books);
     setSortedValue(0);
     setPageDisplay(1);
   };
 
   const handleAutosearchChange = (text) => {
     if (!text) {
-      if (selectedFilters.length) {
-        const filtered = nonChangeableBooks.filter((book) =>
-          selectedFilters.includes(book.genre)
-        );
-        setAllBooks(filtered);
-      } else setAllBooks(nonChangeableBooks);
+      filterGeneral();
     }
   };
 
@@ -75,7 +71,7 @@ function Elementlist({
             <div className="elements__search-main">
               <Autocomplete
                 id="elements__auto-complete"
-                options={allBooks.map((book) => book.title)}
+                options={booksToShow.map((book) => book.title)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -97,13 +93,13 @@ function Elementlist({
       {loadingErrors ? (
         <Alert severity="error">Nie udało się wczytać książek!</Alert>
       ) : (
-        allBooks
+        booksToShow
           .slice(indexes.from, indexes.to)
           .map((book) => (
             <Element
               elementObj={book}
               key={book.id}
-              nonChangeableBooks={nonChangeableBooks}
+              bookBase={bookBase}
               favouriteBooks={favouriteBooks}
               setFavouriteBooks={setFavouriteBooks}
               deleteBookList={deleteBookList}
@@ -113,7 +109,7 @@ function Elementlist({
       )}
 
       <Pagination
-        count={Math.ceil(allBooks.length / booksPerPage)}
+        count={Math.ceil(booksToShow.length / booksPerPage)}
         color="secondary"
         page={pageDisplay}
         className="elements__pagination"

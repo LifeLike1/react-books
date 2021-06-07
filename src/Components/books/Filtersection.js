@@ -1,13 +1,9 @@
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import FilterListIcon from "@material-ui/icons/FilterList";
 
-function Filtersection({
-  nonChangeableBooks,
-  handleSelectedFilter,
-  selectedFilters,
-}) {
+function Filtersection({ bookBase, handleSelectedFilter, selectedFilters }) {
   // Only genres
-  const bookGenres = nonChangeableBooks.map((book) => book.genre);
+  const bookGenres = bookBase.map((book) => book.genre);
   // Unique genres
   const uniqueFilters = [...new Set(bookGenres.sort())];
   return (

@@ -11,9 +11,9 @@ import "./AddEditForm.scss";
 
 function AddEditForm({
   elementObj = {},
-  setAllBooks,
-  setNonChangeableBooks,
-  nonChangeableBooks,
+  setBooksToShow,
+  setBookBase,
+  bookBase,
   setBookValues,
   buttonTitle,
 }) {
@@ -38,7 +38,7 @@ function AddEditForm({
     const errors = {};
     if (!values.title) errors.title = "Tytuł nie może być pusty";
     else if (requestChoice === "add")
-      if (nonChangeableBooks.some((book) => book.title === values.title))
+      if (bookBase.some((book) => book.title === values.title))
         errors.title = "Ta książka jest już dodana";
       else if (typeof values.title !== "string")
         errors.title = "Tytuł musi być wyrazem";
@@ -104,8 +104,8 @@ function AddEditForm({
         }
         if (response) {
           const getResponse = await getBooksAPI();
-          setNonChangeableBooks && setNonChangeableBooks(getResponse);
-          setAllBooks && setAllBooks(getResponse);
+          setBookBase && setBookBase(getResponse);
+          setBooksToShow && setBooksToShow(getResponse);
           setBookValues &&
             setBookValues({
               ...elementObj,
