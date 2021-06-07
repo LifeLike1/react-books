@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { useState } from "react";
 import Elementlist from "./Elementlist";
 import Sidebar from "./Sidebar";
@@ -25,7 +25,7 @@ function Books() {
   const [loadingErrors, setLoadingErrors] = useState(false);
   const [sortedValue, setSortedValue] = useState(0);
 
-  const filterGeneral = () => {
+  const filterGeneral = useCallback(() => {
     const filtered = bookBase.filter((book) => {
       // if two filters (author and genre) are selected
       if (selectedFilters.length && selectedAuthors.length) {
@@ -47,11 +47,17 @@ function Books() {
     !selectedFilters.length && !selectedAuthors.length
       ? setBooksToShow(bookBase)
       : setBooksToShow(filtered);
-  };
+  }, [bookBase, selectedAuthors, selectedFilters]);
 
   useEffect(() => {
     filterGeneral();
-  }, [selectedFilters, selectedAuthors, bookBase, loadingErrors]);
+  }, [
+    selectedFilters,
+    selectedAuthors,
+    bookBase,
+    loadingErrors,
+    filterGeneral,
+  ]);
 
   useEffect(() => {
     setLoading(true);

@@ -20,7 +20,7 @@ function Sidebar({
   deleteBookList,
   setDeleteBookList,
   setPageDisplay,
-  filterGeneral,
+  sortFunction,
 }) {
   // Filter list func
   const handleSelectedFilter = (filterName, isFilterSelected) => {
@@ -43,10 +43,9 @@ function Sidebar({
 
   const handleDeleteButton = async () => {
     const deleteData = async () => {
-      const deletedBooks = await Promise.all(
+      await Promise.all(
         deleteBookList.map((book) => deleteSingleBookAPI(book))
       );
-      console.log(deletedBooks);
     };
     await deleteData();
     const setBooks = async () => {

@@ -22,7 +22,6 @@ function Element({
     selectBool
       ? setDeleteBookList([...deleteBookList, id])
       : setDeleteBookList(deleteBookList.filter((book) => book !== id));
-    console.log(deleteBookList);
   };
   const { id, title, author, release_date, image_url, rating } = elementObj;
   return (
