@@ -3,6 +3,7 @@ import "./Sidebar.scss";
 import Sortoptions from "./Sortoptions";
 import { deleteSingleBookAPI, getBooksAPI } from "../static/requests";
 import Functionalities from "./Functionalities";
+import Authorsection from "./Authorsection";
 
 function Sidebar({
   nonChangeableBooks,
@@ -11,6 +12,8 @@ function Sidebar({
   setAllBooks,
   setSelectedFilters,
   selectedFilters,
+  setSelectedAuthors,
+  selectedAuthors,
   setSortedValue,
   sortedValue,
   loadingErrors,
@@ -26,6 +29,14 @@ function Sidebar({
           selectedFilters.filter((filter) => filter !== filterName)
         );
     setSortedValue(0);
+  };
+
+  const handleSelectedAuthor = (authorName, isAuthorSelected) => {
+    isAuthorSelected
+      ? setSelectedAuthors([...selectedAuthors, authorName])
+      : setSelectedAuthors(
+          selectedAuthors.filter((author) => author !== authorName)
+        );
   };
 
   const handleDeleteButton = async () => {
@@ -111,6 +122,12 @@ function Sidebar({
             nonChangeableBooks={nonChangeableBooks}
             handleSelectedFilter={handleSelectedFilter}
             selectedFilters={selectedFilters}
+          />
+          <Authorsection
+            nonChangeableBooks={nonChangeableBooks}
+            setSelectedAuthors={setSelectedAuthors}
+            handleSelectedAuthor={handleSelectedAuthor}
+            selectedAuthors={selectedAuthors}
           />
           <Sortoptions
             handleSortChange={handleSortChange}

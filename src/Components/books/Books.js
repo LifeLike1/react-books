@@ -17,6 +17,7 @@ function Books() {
   const [deleteBookList, setDeleteBookList] = useState([]);
   const [pageDisplay, setPageDisplay] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
   const [indexes, setIndexes] = useState({
     from: 0,
     to: booksPerPage,
@@ -25,13 +26,27 @@ function Books() {
   const [sortedValue, setSortedValue] = useState(0);
 
   useEffect(() => {
-    const filtered = nonChangeableBooks.filter((book) =>
-      selectedFilters.includes(book.genre)
-    );
-    selectedFilters.length === 0
+    const filtered = nonChangeableBooks.filter((book) => {
+      // if two filters (author and genre) are selected
+      if (selectedFilters.length && selectedAuthors.length) {
+        return (
+          selectedAuthors.includes(book.author) &&
+          selectedFilters.includes(book.genre)
+        );
+      }
+      // if only genre filter is selected
+      if (!selectedAuthors.length) {
+        return selectedFilters.includes(book.genre);
+      }
+      // if only author filter is selected
+      if (!selectedFilters.length) {
+        return selectedAuthors.includes(book.author);
+      }
+    });
+    !selectedFilters.length && !selectedAuthors.length
       ? setAllBooks(nonChangeableBooks)
       : setAllBooks(filtered);
-  }, [selectedFilters, nonChangeableBooks, loadingErrors]);
+  }, [selectedFilters, selectedAuthors, nonChangeableBooks, loadingErrors]);
 
   useEffect(() => {
     setLoading(true);
@@ -58,6 +73,8 @@ function Books() {
         setAllBooks={setAllBooks}
         setSelectedFilters={setSelectedFilters}
         selectedFilters={selectedFilters}
+        selectedAuthors={selectedAuthors}
+        setSelectedAuthors={setSelectedAuthors}
         setSortedValue={setSortedValue}
         sortedValue={sortedValue}
         loadingErrors={loadingErrors}

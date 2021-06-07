@@ -3,6 +3,7 @@
 .sidebar {
   @include scroll-bar;
   @include flex-center-column;
+  justify-content: center;
   &__title {
     font-size: 1.5rem;
     order: 1;
@@ -16,6 +17,7 @@
     @include shadow-card;
     padding-bottom: 15px;
     order: 2;
+    margin-top: 2vh;
   }
   &__option {
     @media (max-width: $very-small-screen-res - 1) {
@@ -27,7 +29,7 @@
     row-gap: 1vh;
     padding: 10px;
     overflow: auto;
-    max-height: 200px;
+    max-height: 150px;
     @media (min-width: $very-small-screen-res) {
       grid-template-columns: 50% 50%;
     }
@@ -51,7 +53,7 @@
     @include flex-center-column;
     @include shadow-card;
     order: 3;
-    margin-top: 3vh;
+    margin-top: 2vh;
     padding-bottom: 2vh;
     .MuiFormControl-root,
     .MuiInputBase-input {
@@ -76,7 +78,7 @@
     @include flex-center-column;
     @include shadow-card;
     order: 4;
-    margin-top: 3vh;
+    margin-top: 2vh;
     padding-bottom: 10px;
     .MuiButtonBase-root:last-of-type {
       margin-top: 15px;
