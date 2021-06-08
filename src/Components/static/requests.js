@@ -3,7 +3,7 @@ import axios from "axios";
 export const getBooksAPI = async () => {
   try {
     const response = await axios.get("http://localhost:5000/api/book");
-    return response.data;
+    return response.data.sort((a, b) => a.id - b.id);
   } catch (e) {
     return undefined;
   }
