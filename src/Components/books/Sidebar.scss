@@ -3,7 +3,6 @@
 .sidebar {
   @include scroll-bar;
   @include flex-center-column;
-  justify-content: center;
   &__title {
     font-size: 1.5rem;
     order: 1;

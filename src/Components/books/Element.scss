@@ -26,16 +26,14 @@
     margin-left: 0;
   }
   &__image {
-    height: 90%;
-    width: 90%;
+    width: 95%;
+    height: 95%;
+    transition: all 0.25s ease-in-out;
     @media (max-width: $very-small-screen-res) {
-      width: 100%;
+      width: 99%;
     }
-    transition: 0.66s;
     &:hover {
-      height: 96%;
-      width: 96%;
-      transition: 0.66s;
+      transform: scale(1.1);
     }
   }
   &__author {
