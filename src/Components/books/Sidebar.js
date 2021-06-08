@@ -28,7 +28,6 @@ function Sidebar({
       : setSelectedFilters(
           selectedFilters.filter((filter) => filter !== filterName)
         );
-    setSortedValue(0);
   };
 
   const handleSelectedAuthor = (authorName, isAuthorSelected) => {
@@ -37,7 +36,6 @@ function Sidebar({
       : setSelectedAuthors(
           selectedAuthors.filter((author) => author !== authorName)
         );
-    setSortedValue(0);
   };
 
   const handleDeleteButton = async () => {
@@ -66,16 +64,24 @@ function Sidebar({
     switch (sortId) {
       case 0:
         setBooksToShow([...booksToShow].sort((a, b) => a.id - b.id));
+        setBookBase([...bookBase].sort((a, b) => a.id - b.id));
         break;
       case 1:
         setBooksToShow([...booksToShow].sort((a, b) => a.rating - b.rating));
+        setBookBase([...bookBase].sort((a, b) => a.rating - b.rating));
         break;
       case 2:
         setBooksToShow([...booksToShow].sort((a, b) => b.rating - a.rating));
+        setBookBase([...bookBase].sort((a, b) => b.rating - a.rating));
         break;
       case 3:
         setBooksToShow(
           [...booksToShow].sort((a, b) =>
+            a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+          )
+        );
+        setBookBase(
+          [...bookBase].sort((a, b) =>
             a.title > b.title ? 1 : b.title > a.title ? -1 : 0
           )
         );
@@ -86,10 +92,24 @@ function Sidebar({
             b.title > a.title ? 1 : a.title > b.title ? -1 : 0
           )
         );
+        setBookBase(
+          [...bookBase].sort((a, b) =>
+            b.title > a.title ? 1 : a.title > b.title ? -1 : 0
+          )
+        );
         break;
       case 5:
         setBooksToShow(
           [...booksToShow].sort((a, b) =>
+            b.release_date > a.release_date
+              ? 1
+              : a.release_date > b.release_date
+              ? -1
+              : 0
+          )
+        );
+        setBookBase(
+          [...bookBase].sort((a, b) =>
             b.release_date > a.release_date
               ? 1
               : a.release_date > b.release_date
@@ -108,9 +128,19 @@ function Sidebar({
               : 0
           )
         );
+        setBookBase(
+          [...bookBase].sort((a, b) =>
+            a.release_date > b.release_date
+              ? 1
+              : b.release_date > a.release_date
+              ? -1
+              : 0
+          )
+        );
         break;
       default:
         setBooksToShow([...booksToShow].sort((a, b) => a.id - b.id));
+        setBookBase([...bookBase].sort((a, b) => a.id - b.id));
         break;
     }
   };

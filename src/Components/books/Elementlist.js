@@ -36,7 +36,6 @@ function Elementlist({
   const handleSearchChange = (searchBook) => {
     const books = booksToShow.filter((book) => book.title === searchBook);
     setBooksToShow(books);
-    setSortedValue(0);
     setPageDisplay(1);
   };
 
@@ -51,7 +50,6 @@ function Elementlist({
       from: 0,
       to: booksPerPage,
     });
-    setSortedValue(0);
     setPageDisplay(1);
   }, [
     selectedFilters,
