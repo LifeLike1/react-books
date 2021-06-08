@@ -20,7 +20,6 @@ function Sidebar({
   deleteBookList,
   setDeleteBookList,
   setPageDisplay,
-  sortFunction,
 }) {
   // Filter list func
   const handleSelectedFilter = (filterName, isFilterSelected) => {

@@ -101,6 +101,7 @@ function Books() {
             bookBase={bookBase}
             setBookBase={setBookBase}
             selectedFilters={selectedFilters}
+            selectedAuthors={selectedAuthors}
             pageDisplay={pageDisplay}
             setPageDisplay={setPageDisplay}
             indexes={indexes}

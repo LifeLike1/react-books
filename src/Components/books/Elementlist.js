@@ -12,6 +12,7 @@ function Elementlist({
   pageDisplay,
   setPageDisplay,
   selectedFilters,
+  selectedAuthors,
   indexes,
   setIndexes,
   booksPerPage,
@@ -54,6 +55,7 @@ function Elementlist({
     setPageDisplay(1);
   }, [
     selectedFilters,
+    selectedAuthors,
     booksPerPage,
     setIndexes,
     setPageDisplay,
